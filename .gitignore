@@ -1,0 +1,9 @@
+/**/build
+/**/dist
+/**/coverage
+/**/node_modules
+.DS_Store
+.htaccess
+*.code-workspace
+*-nogit
+.env
