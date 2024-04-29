@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./App.css";
 
 interface Post {
 	id: number;
@@ -31,14 +32,42 @@ function App() {
 
 			<p>Counter: {counter}</p>
 
+			<button onClick={handleBtnClick} className="btn btn-success">Click me</button>
+			<button onClick={() => setMsg("Hi dad!")} className="btn btn-warning">Hi dad?</button>
+
+			<hr />
+
+			<p>Salary per hour: SALARY &euro;</p>
+
+			<div className="buttons">
+				<div className="mb-1">
+					<button
+						className="btn btn-primary btn-lg"
+					>Raise 1 &euro; 🤑</button>
+					<button
+						className="btn btn-warning btn-lg"
+					>Decrease 1 &euro; 😢</button>
+				</div>
+
+				<div className="mb-1">
+					<button
+						className="btn btn-success btn-lg"
+					>Raise 5 &euro; 🤑🤑🤑</button>
+					<button
+						className="btn btn-danger btn-lg"
+					>Decrease 5 &euro; 😢😢😢</button>
+				</div>
+			</div>
+
+			<hr />
+
+			<h2>Posts</h2>
+
 			<ul>
 				{posts.map(post =>
 					<li key={post.id}>{post.title} ({post.likes} likes)</li>
 				)}
 			</ul>
-
-			<button onClick={handleBtnClick} className="btn btn-success">Click me</button>
-			<button onClick={() => setMsg("Hi dad!")} className="btn btn-warning">Hi dad?</button>
 		</div>
 	);
 }
