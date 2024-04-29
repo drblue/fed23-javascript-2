@@ -27,7 +27,8 @@ function App() {
 
 	const handleChangeSalary = (amount: number) => {
 		if (salary + amount < 5) {
-			return setSalary(5);
+			setSalary(5);
+			return;
 		}
 		setSalary(salary + amount);
 	}
@@ -46,6 +47,8 @@ function App() {
 			<hr />
 
 			<p>Salary per hour: {salary} &euro;</p>
+
+			{salary < 10 && <div className="alert alert-warning">You might want to change job?</div>}
 
 			<div className="buttons">
 				<div className="mb-1">
