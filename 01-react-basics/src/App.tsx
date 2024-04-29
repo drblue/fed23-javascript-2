@@ -26,6 +26,9 @@ function App() {
 	}
 
 	const handleChangeSalary = (amount: number) => {
+		if (salary + amount < 5) {
+			return setSalary(5);
+		}
 		setSalary(salary + amount);
 	}
 
