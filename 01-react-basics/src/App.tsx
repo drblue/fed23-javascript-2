@@ -17,6 +17,7 @@ function App() {
 		{ id: 3, title: "Got state?", likes: 3 },
 	]);
 	const [showSalary, setShowSalary] = useState(false);
+	const [inputPostTitle, setInputPostTitle] = useState("");
 
 	console.log("App is being rendered");
 
@@ -27,6 +28,22 @@ function App() {
 
 	const handleDeletePost = (postToDelete: Post) => {
 		setPosts(posts.filter(post => post !== postToDelete));
+	}
+
+	const handleFormSubmit = (e: React.FormEvent) => {
+		// stop form from submitting
+		e.preventDefault();
+
+		// create a new post
+		const newPost: Post = {
+			id: Math.max(...posts.map(post => post.id)) + 1,
+			title: inputPostTitle,
+			likes: 0,
+		}
+		setPosts([...posts, newPost]);
+
+		// clear input field
+		setInputPostTitle("");
 	}
 
 	return (
@@ -54,13 +71,32 @@ function App() {
 
 			<h2>Posts</h2>
 
+			<form onSubmit={handleFormSubmit} className="mb-3">
+				<div className="input-group">
+					<input
+						aria-label="Post title"
+						className="form-control"
+						onChange={(e) => setInputPostTitle(e.target.value)}
+						placeholder="Fun with Forms"
+						required
+						type="text"
+						value={inputPostTitle}
+					/>
+
+					<button
+						type="submit"
+						className="btn btn-success"
+					>Create</button>
+				</div>
+			</form>
+
 			{posts.length > 0 && (
 				<ul>
 					{posts.map(post =>
 						<li key={post.id}>
 							{post.title} ({post.likes} likes)
 							<button
-								className="btn btn-success btn-sm ms-1"
+								className="btn btn-primary btn-sm ms-1"
 								onClick={() => handleAddLike(post)}
 							>❤️</button>
 							<button
