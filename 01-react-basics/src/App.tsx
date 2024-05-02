@@ -103,21 +103,23 @@ function App() {
 
 			<h2>Posts</h2>
 
-			<ul>
-				{posts.map(post =>
-					<li key={post.id}>
-						{post.title} ({post.likes} likes)
-						<button
-							className="btn btn-success btn-sm ms-1"
-							onClick={() => handleAddLike(post)}
-						>❤️</button>
-						<button
-							className="btn btn-danger btn-sm ms-1"
-							onClick={() => handleDeletePost(post)}
-						>🗑️</button>
-					</li>
-				)}
-			</ul>
+			{posts.length > 0 && (
+				<ul>
+					{posts.map(post =>
+						<li key={post.id}>
+							{post.title} ({post.likes} likes)
+							<button
+								className="btn btn-success btn-sm ms-1"
+								onClick={() => handleAddLike(post)}
+							>❤️</button>
+							<button
+								className="btn btn-danger btn-sm ms-1"
+								onClick={() => handleDeletePost(post)}
+							>🗑️</button>
+						</li>
+					)}
+				</ul>
+			)}
 		</div>
 	);
 }
