@@ -39,6 +39,11 @@ function App() {
 		setSalary(salary + amount);
 	}
 
+	const handleAddLike = (post: Post) => {
+		post.likes++;
+		setPosts([...posts]);
+	}
+
 	return (
 		<div className="container">
 			<h1>01-react-basics</h1>
@@ -87,16 +92,24 @@ function App() {
 							>Decrease 5 &euro; 😢😢😢</button>
 						</div>
 					</div>
-
-					<hr />
 				</>
 			)}
+
+			<hr />
 
 			<h2>Posts</h2>
 
 			<ul>
 				{posts.map(post =>
-					<li key={post.id}>{post.title} ({post.likes} likes)</li>
+					<li key={post.id}>
+						{post.title} ({post.likes} likes)
+						<button
+							className="btn btn-success btn-sm ms-1"
+							onClick={() => handleAddLike(post)}
+						>
+							❤️
+						</button>
+					</li>
 				)}
 			</ul>
 		</div>
