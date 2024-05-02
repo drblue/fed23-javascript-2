@@ -16,6 +16,7 @@ function App() {
 		{ id: 3, title: "Got state?", likes: 3 },
 	]);
 	const [salary, setSalary] = useState(10);
+	const [showSalary, setShowSalary] = useState(false);
 
 	console.log("App is being rendered");
 	console.log("Counter on render:", counter);
@@ -51,35 +52,43 @@ function App() {
 
 			<hr />
 
-			<p>Salary per hour: {salary} &euro;</p>
+			<button onClick={() => setShowSalary(!showSalary)} className="btn btn-primary">Show/hide salary</button>
 
-			{salary < 10 && <div className="alert alert-warning">You might want to change job?</div>}
+			{showSalary && (
+				<>
+					<h2>Salary</h2>
 
-			<div className="buttons">
-				<div className="mb-1">
-					<button
-						className="btn btn-primary btn-lg"
-						onClick={() => handleChangeSalary(1)}
-					>Raise 1 &euro; 🤑</button>
-					<button
-						className="btn btn-warning btn-lg"
-						onClick={() => handleChangeSalary(-1)}
-					>Decrease 1 &euro; 😢</button>
-				</div>
+					<p>Salary per hour: {salary} &euro;</p>
 
-				<div className="mb-1">
-					<button
-						className="btn btn-success btn-lg"
-						onClick={() => handleChangeSalary(5)}
-					>Raise 5 &euro; 🤑🤑🤑</button>
-					<button
-						className="btn btn-danger btn-lg"
-						onClick={() => handleChangeSalary(-5)}
-					>Decrease 5 &euro; 😢😢😢</button>
-				</div>
-			</div>
+					{salary < 10 && <div className="alert alert-warning">You might want to change job?</div>}
 
-			<hr />
+					<div className="buttons">
+						<div className="mb-1">
+							<button
+								className="btn btn-primary btn-lg"
+								onClick={() => handleChangeSalary(1)}
+							>Raise 1 &euro; 🤑</button>
+							<button
+								className="btn btn-warning btn-lg"
+								onClick={() => handleChangeSalary(-1)}
+							>Decrease 1 &euro; 😢</button>
+						</div>
+
+						<div className="mb-1">
+							<button
+								className="btn btn-success btn-lg"
+								onClick={() => handleChangeSalary(5)}
+							>Raise 5 &euro; 🤑🤑🤑</button>
+							<button
+								className="btn btn-danger btn-lg"
+								onClick={() => handleChangeSalary(-5)}
+							>Decrease 5 &euro; 😢😢😢</button>
+						</div>
+					</div>
+
+					<hr />
+				</>
+			)}
 
 			<h2>Posts</h2>
 
