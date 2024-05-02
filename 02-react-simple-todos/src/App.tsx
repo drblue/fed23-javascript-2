@@ -9,10 +9,38 @@ function App() {
 		{ id: 3, title: "Drink MOAR coffee", completed: false },
 		{ id: 4, title: "Drink ALL ZE coffee", completed: false },
 	]);
+	const [inputNewTodoTitle, setInputNewTodoTitle] = useState("");
+
+	const handleAddTodo = (e: React.FormEvent) => {
+		e.preventDefault();
+
+		setTodos([...todos, {
+			id: Math.max(0, ...todos.map(todo => todo.id)) + 1,
+			title: inputNewTodoTitle,
+			completed: false,
+		}]);
+
+		setInputNewTodoTitle("");
+	}
 
 	return (
 		<div className="container">
 			<h1>React Simple Todos</h1>
+
+			<form onSubmit={handleAddTodo} className="mb-3">
+				<div className="input-group">
+					<input
+						aria-label="New todo title"
+						className="form-control"
+						onChange={e => setInputNewTodoTitle(e.target.value)}
+						placeholder="Learn about GTD"
+						type="text"
+						value={inputNewTodoTitle}
+					/>
+
+					<button className="btn btn-success" type="submit">👶🏻</button>
+				</div>
+			</form>
 
 			<ul className="todolist list-group">
 				{todos.map(todo => (
