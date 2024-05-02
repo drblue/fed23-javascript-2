@@ -23,6 +23,11 @@ function App() {
 		setInputNewTodoTitle("");
 	}
 
+	const handleToggleTodo = (todo: Todo) => {
+		todo.completed = !todo.completed;
+		setTodos([...todos]);
+	}
+
 	return (
 		<div className="container">
 			<h1>React Simple Todos</h1>
@@ -46,6 +51,13 @@ function App() {
 				{todos.map(todo => (
 					<li key={todo.id} className={todo.completed ? "done list-group-item" : "list-group-item"}>
 						<span className="todo-title">{todo.title}</span>
+
+						<div>
+							<button
+								className="btn btn-sm btn-warning"
+								onClick={() => handleToggleTodo(todo)}
+							>{todo.completed ? "✅" : "☑️"}</button>
+						</div>
 					</li>
 				))}
 			</ul>
