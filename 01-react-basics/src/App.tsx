@@ -44,6 +44,10 @@ function App() {
 		setPosts([...posts]);
 	}
 
+	const handleDeletePost = (postToDelete: Post) => {
+		setPosts(posts.filter(post => post !== postToDelete));
+	}
+
 	return (
 		<div className="container">
 			<h1>01-react-basics</h1>
@@ -106,9 +110,11 @@ function App() {
 						<button
 							className="btn btn-success btn-sm ms-1"
 							onClick={() => handleAddLike(post)}
-						>
-							❤️
-						</button>
+						>❤️</button>
+						<button
+							className="btn btn-danger btn-sm ms-1"
+							onClick={() => handleDeletePost(post)}
+						>🗑️</button>
 					</li>
 				)}
 			</ul>
