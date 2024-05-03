@@ -52,24 +52,30 @@ function App() {
 			</form>
 
 			{todos.length > 0 && (
-				<ul className="todolist list-group">
-					{todos.map(todo => (
-						<li key={todo.id} className={todo.completed ? "done list-group-item" : "list-group-item"}>
-							<span className="todo-title">{todo.title}</span>
+				<>
+					<ul className="todolist list-group">
+						{todos.map(todo => (
+							<li key={todo.id} className={todo.completed ? "done list-group-item" : "list-group-item"}>
+								<span className="todo-title">{todo.title}</span>
 
-							<div>
-								<button
-									className="btn btn-sm btn-outline-warning me-2"
-									onClick={() => handleToggleTodo(todo)}
-								>{todo.completed ? "✅" : "☑️"}</button>
-								<button
-									className="btn btn-sm btn-outline-danger"
-									onClick={() => handleDeleteTodo(todo)}
-								>💣</button>
-							</div>
-						</li>
-					))}
-				</ul>
+								<div>
+									<button
+										className="btn btn-sm btn-outline-warning me-2"
+										onClick={() => handleToggleTodo(todo)}
+									>{todo.completed ? "✅" : "☑️"}</button>
+									<button
+										className="btn btn-sm btn-outline-danger"
+										onClick={() => handleDeleteTodo(todo)}
+									>💣</button>
+								</div>
+							</li>
+						))}
+					</ul>
+
+					<p className="mt-3 text-muted">
+						{todos.filter(todo => todo.completed).length} out of {todos.length} todos completed.
+					</p>
+				</>
 			)}
 
 			{!todos.length && (
