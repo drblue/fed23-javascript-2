@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Todo } from "./types/Todo";
 import "./assets/scss/App.scss";
 
@@ -34,6 +34,16 @@ function App() {
 
 	const finishedTodos = todos.filter(todo => todo.completed);
 	const unfinishedTodos = todos.filter(todo => !todo.completed);
+
+	console.log("Component is rendering");
+
+	// Our first side-effect
+	useEffect(() => {
+		// This code will only be executed **AFTER** the component has rendered
+		// AND if the length of unfinished todos has changed SINCE THE LAST RENDER
+		console.log("🚨 The length of unfinished todos has changed!");
+		document.title = `${unfinishedTodos.length} todos unfinished 🇫🇮`;
+	}, [ unfinishedTodos.length ]);
 
 	return (
 		<div className="container">
