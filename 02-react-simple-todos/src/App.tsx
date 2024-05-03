@@ -28,6 +28,10 @@ function App() {
 		setTodos([...todos]);
 	}
 
+	const handleDeleteTodo = (todo: Todo) => {
+		setTodos([...todos.filter(t => t !== todo)]);
+	}
+
 	return (
 		<div className="container">
 			<h1>React Simple Todos</h1>
@@ -54,9 +58,13 @@ function App() {
 
 						<div>
 							<button
-								className="btn btn-sm btn-warning"
+								className="btn btn-sm btn-outline-warning me-2"
 								onClick={() => handleToggleTodo(todo)}
 							>{todo.completed ? "✅" : "☑️"}</button>
+							<button
+								className="btn btn-sm btn-outline-danger"
+								onClick={() => handleDeleteTodo(todo)}
+							>💣</button>
 						</div>
 					</li>
 				))}
