@@ -45,6 +45,12 @@ function App() {
 		document.title = `${unfinishedTodos.length} todos unfinished 🇫🇮`;
 	}, [ unfinishedTodos.length ]);
 
+	// This will only be executed when the component is mounted,
+	// and only AFTER the component has been rendered
+	useEffect(() => {
+		console.log("Look mom, I'm a newly mounted component 👶🏻");
+	}, []);
+
 	return (
 		<div className="container">
 			<h1>React Simple Todos</h1>
