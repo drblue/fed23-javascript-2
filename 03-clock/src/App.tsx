@@ -7,6 +7,7 @@ function App() {
 		return new Date().toLocaleTimeString();
 	});
 
+	// Start clock when component was mounted for the first time
 	useEffect(() => {
 		console.log("🔫 Starting clock...");
 
@@ -15,6 +16,12 @@ function App() {
 			console.log("🏎️ Tick...");
 		}, 1000);
 	}, []);
+
+	// Update page title with the current time
+	// but ONLY if the time has changed since the last render
+	useEffect(() => {
+		document.title = time;
+	}, [time]);
 
 	return (
 		<div className="container">
