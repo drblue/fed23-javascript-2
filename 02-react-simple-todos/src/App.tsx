@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import TodoListItem from "./components/TodoListItem";
 import { Todo } from "./types/Todo";
 import "./assets/scss/App.scss";
 
@@ -75,40 +76,14 @@ function App() {
 					<h2 className="mb-2 h5">💪🏻 Stuff I got to do</h2>
 					<ul className="todolist list-group">
 						{unfinishedTodos.map(todo => (
-							<li key={todo.id} className={todo.completed ? "done list-group-item" : "list-group-item"}>
-								<span className="todo-title">{todo.title}</span>
-
-								<div>
-									<button
-										className="btn btn-sm btn-outline-warning me-2"
-										onClick={() => handleToggleTodo(todo)}
-									>{todo.completed ? "✅" : "☑️"}</button>
-									<button
-										className="btn btn-sm btn-outline-danger"
-										onClick={() => handleDeleteTodo(todo)}
-									>💣</button>
-								</div>
-							</li>
+							<TodoListItem key={todo.id} todo={todo} />
 						))}
 					</ul>
 
 					<h2 className="mb-2 h5">🥺 Stuff I've done</h2>
 					<ul className="todolist list-group">
 						{finishedTodos.map(todo => (
-							<li key={todo.id} className={todo.completed ? "done list-group-item" : "list-group-item"}>
-								<span className="todo-title">{todo.title}</span>
-
-								<div>
-									<button
-										className="btn btn-sm btn-outline-warning me-2"
-										onClick={() => handleToggleTodo(todo)}
-									>{todo.completed ? "✅" : "☑️"}</button>
-									<button
-										className="btn btn-sm btn-outline-danger"
-										onClick={() => handleDeleteTodo(todo)}
-									>💣</button>
-								</div>
-							</li>
+							<TodoListItem key={todo.id} todo={todo} />
 						))}
 					</ul>
 
