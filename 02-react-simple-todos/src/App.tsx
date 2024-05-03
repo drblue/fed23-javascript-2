@@ -63,6 +63,7 @@ function App() {
 						className="form-control"
 						onChange={e => setInputNewTodoTitle(e.target.value)}
 						placeholder="Learn about GTD"
+						required
 						type="text"
 						value={inputNewTodoTitle}
 					/>
