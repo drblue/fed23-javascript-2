@@ -76,14 +76,24 @@ function App() {
 					<h2 className="mb-2 h5">💪🏻 Stuff I got to do</h2>
 					<ul className="todolist list-group">
 						{unfinishedTodos.map(todo => (
-							<TodoListItem key={todo.id} todo={todo} />
+							<TodoListItem
+								key={todo.id}
+								onDelete={handleDeleteTodo}
+								onToggle={handleToggleTodo}
+								todo={todo}
+							/>
 						))}
 					</ul>
 
 					<h2 className="mb-2 h5">🥺 Stuff I've done</h2>
 					<ul className="todolist list-group">
 						{finishedTodos.map(todo => (
-							<TodoListItem key={todo.id} todo={todo} />
+							<TodoListItem
+								key={todo.id}
+								onDelete={handleDeleteTodo}
+								onToggle={handleToggleTodo}
+								todo={todo}
+							/>
 						))}
 					</ul>
 
