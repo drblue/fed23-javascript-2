@@ -51,24 +51,30 @@ function App() {
 				</div>
 			</form>
 
-			<ul className="todolist list-group">
-				{todos.map(todo => (
-					<li key={todo.id} className={todo.completed ? "done list-group-item" : "list-group-item"}>
-						<span className="todo-title">{todo.title}</span>
+			{todos.length > 0
+				? (
+					<ul className="todolist list-group">
+						{todos.map(todo => (
+							<li key={todo.id} className={todo.completed ? "done list-group-item" : "list-group-item"}>
+								<span className="todo-title">{todo.title}</span>
 
-						<div>
-							<button
-								className="btn btn-sm btn-outline-warning me-2"
-								onClick={() => handleToggleTodo(todo)}
-							>{todo.completed ? "✅" : "☑️"}</button>
-							<button
-								className="btn btn-sm btn-outline-danger"
-								onClick={() => handleDeleteTodo(todo)}
-							>💣</button>
-						</div>
-					</li>
-				))}
-			</ul>
+								<div>
+									<button
+										className="btn btn-sm btn-outline-warning me-2"
+										onClick={() => handleToggleTodo(todo)}
+									>{todo.completed ? "✅" : "☑️"}</button>
+									<button
+										className="btn btn-sm btn-outline-danger"
+										onClick={() => handleDeleteTodo(todo)}
+									>💣</button>
+								</div>
+							</li>
+						))}
+					</ul>
+				) : (
+					<div className="alert alert-success">You ain't got no todos 🤩!</div>
+				)
+			}
 		</div>
 	);
 }
