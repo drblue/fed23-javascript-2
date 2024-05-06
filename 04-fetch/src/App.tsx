@@ -3,10 +3,14 @@ import { Resource } from "./types/Resource";
 import "./assets/scss/App.scss";
 
 function App() {
-	const [resource, setResource] = useState('posts');
+	const [resource, setResource] = useState("");
 	const [data, setData] = useState<Resource[]>([]);
 
 	useEffect(() => {
+		if (!resource) {
+			return;
+		}
+
 		console.log("Side-effect triggered due to resource changing value to:", resource);
 
 		const fetchData = async () => {
@@ -30,7 +34,7 @@ function App() {
 				<button onClick={() => setResource('todos')} className="btn btn-danger">Todos</button>
 			</div>
 
-			{data && (
+			{resource && (
 				<>
 					<h2>{resource}</h2>
 					<p>There are {data.length} {resource}.</p>
