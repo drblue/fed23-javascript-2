@@ -1,0 +1,24 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "title": "Make coffee",
+      "completed": true
+    },
+    {
+      "id": 2,
+      "title": "Drink coffee",
+      "completed": true
+    },
+    {
+      "id": 3,
+      "title": "Drink MOAR coffee",
+      "completed": true
+    },
+    {
+      "id": 4,
+      "title": "Drink ALL ZE covfefe",
+      "completed": false
+    }
+  ]
+}

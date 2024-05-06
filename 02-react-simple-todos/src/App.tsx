@@ -2,28 +2,23 @@ import { useEffect, useState } from "react";
 import AddNewTodoForm from "./components/AddNewTodoForm";
 import TodoCounter from "./components/TodoCounter";
 import TodoList from "./components/TodoList";
+import * as TodosAPI from "./services/TodosAPI";
 import { Todo } from "./types/Todo";
 import "./assets/scss/App.scss";
 
 function App() {
-	const [todos, setTodos] = useState<Todo[]>([
-		{ id: 1, title: "Make coffee", completed: true },
-		{ id: 2, title: "Drink coffee", completed: false },
-		{ id: 3, title: "Drink MOAR coffee", completed: false },
-		{ id: 4, title: "Drink ALL ZE coffee", completed: false },
-	]);
+	const [todos, setTodos] = useState<Todo[]>([]);
 
 	const addTodo = (todo: Todo) => {
-		setTodos([...todos, todo]);
+		// FIX ME
 	}
 
 	const handleToggleTodo = (todo: Todo) => {
-		todo.completed = !todo.completed;
-		setTodos([...todos]);
+		// FIX ME
 	}
 
 	const handleDeleteTodo = (todo: Todo) => {
-		setTodos([...todos.filter(t => t !== todo)]);
+		// FIX ME
 	}
 
 	const finishedTodos = todos.filter(todo => todo.completed);
@@ -31,18 +26,16 @@ function App() {
 
 	console.log("Component is rendering");
 
-	// Our first side-effect
 	useEffect(() => {
-		// This code will only be executed **AFTER** the component has rendered
-		// AND if the length of unfinished todos has changed SINCE THE LAST RENDER
-		// console.log("🚨 The length of unfinished todos has changed!");
-		document.title = `${unfinishedTodos.length} todos unfinished 🇫🇮`;
-	}, [ unfinishedTodos.length ]);
+		const getTodos = async () => {
+			setTodos([]);
 
-	// This will only be executed when the component is mounted,
-	// and only AFTER the component has been rendered
-	useEffect(() => {
-		// console.log("Look mom, I'm a newly mounted component 👶🏻");
+			// make request to api
+			const data = await TodosAPI.getTodos();
+
+			setTodos(data);
+		}
+		getTodos();
 	}, []);
 
 	return (
