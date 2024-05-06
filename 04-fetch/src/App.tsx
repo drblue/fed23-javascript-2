@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ResourceList from "./components/ResourceList";
 import { getResource } from "./services/JSONPlaceholderAPI";
 import { Resource } from "./types/Resource";
 import "./assets/scss/App.scss";
@@ -55,22 +56,12 @@ function App() {
 				<button onClick={() => setResource('memes')} className="btn btn-info">Memes</button>
 			</div>
 
-			{error && <div className="alert alert-warning">{error}</div>}
-
-			{isLoading && <p>Loading...</p>}
-
-			{!isLoading && resource && data.length > 0 && (
-				<>
-					<h2>{resource}</h2>
-					<p>There are {data.length} {resource}.</p>
-
-					<ol>
-						{data.map(item => (
-							<li key={item.id}>{item.title}</li>
-						))}
-					</ol>
-				</>
-			)}
+			<ResourceList
+				data={data}
+				error={error}
+				isLoading={isLoading}
+				resource={resource}
+			/>
 		</div>
 	)
 }
