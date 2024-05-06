@@ -5,6 +5,7 @@ import "./assets/scss/App.scss";
 function App() {
 	const [resource, setResource] = useState("");
 	const [data, setData] = useState<Resource[]>([]);
+	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
 		if (!resource) {
@@ -14,10 +15,13 @@ function App() {
 		console.log("Side-effect triggered due to resource changing value to:", resource);
 
 		const fetchData = async () => {
+			setData([]);
+			setIsLoading(true);
 			const res = await fetch(`https://jsonplaceholder.typicode.com/${resource}`);
 			const payload = await res.json();
 			await new Promise(r => setTimeout(r, 2500));
 			setData(payload);
+			setIsLoading(false);
 		}
 		fetchData();
 	}, [resource]);
@@ -36,7 +40,9 @@ function App() {
 				<button onClick={() => setResource('memes')} className="btn btn-info">Memes</button>
 			</div>
 
-			{resource && (
+			{isLoading && <p>Loading...</p>}
+
+			{!isLoading && resource && data.length > 0 && (
 				<>
 					<h2>{resource}</h2>
 					<p>There are {data.length} {resource}.</p>
