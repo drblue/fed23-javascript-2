@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import TodoListItem from "./components/TodoListItem";
 import { Todo } from "./types/Todo";
 import "./assets/scss/App.scss";
+import TodoCounter from "./components/TodoCounter";
 
 function App() {
 	const [todos, setTodos] = useState<Todo[]>([
@@ -98,9 +99,7 @@ function App() {
 						))}
 					</ul>
 
-					<p className="mt-3 text-muted">
-						{unfinishedTodos.length} out of {todos.length} todos completed.
-					</p>
+					<TodoCounter finished={finishedTodos.length} total={todos.length} />
 				</>
 			)}
 
