@@ -45,6 +45,10 @@ const AddNewTodoForm: React.FC<AddNewTodoFormProps> = ({ onAddTodo, todos }) => 
 					type="submit"
 				>👶🏻</button>
 			</div>
+
+			{inputNewTodoTitle.trim().length > 0 && inputNewTodoTitle.trim().length < 3 && (
+				<div className="form-text text-danger">Please enter 3 chars or more</div>
+			)}
 		</form>
 	)
 }
