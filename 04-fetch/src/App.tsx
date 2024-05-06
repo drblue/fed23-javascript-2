@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { getResource } from "./services/JSONPlaceholderAPI";
 import { Resource } from "./types/Resource";
 import "./assets/scss/App.scss";
 
@@ -6,21 +7,35 @@ function App() {
 	const [resource, setResource] = useState("");
 	const [data, setData] = useState<Resource[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<string | false>(false);
 
 	useEffect(() => {
-		if (!resource) {
-			return;
-		}
-
 		console.log("Side-effect triggered due to resource changing value to:", resource);
 
 		const fetchData = async () => {
+			if (!resource) {
+				return;
+			}
+
+			// reset state
 			setData([]);
+			setError(false);
 			setIsLoading(true);
-			const res = await fetch(`https://jsonplaceholder.typicode.com/${resource}`);
-			const payload = await res.json();
-			await new Promise(r => setTimeout(r, 2500));
-			setData(payload);
+
+			try {
+				// make the actual request
+				const payload = await getResource(resource);
+
+				// set data to payload and loading state to false
+				setData(payload);
+			} catch (err) {
+				if (err instanceof Error) {
+					setError(err.message);
+				} else {
+					setError("This should really never happen...");
+				}
+			}
+
 			setIsLoading(false);
 		}
 		fetchData();
@@ -39,6 +54,8 @@ function App() {
 				<button onClick={() => setResource('todos')} className="btn btn-danger">Todos</button>
 				<button onClick={() => setResource('memes')} className="btn btn-info">Memes</button>
 			</div>
+
+			{error && <div className="alert alert-warning">{error}</div>}
 
 			{isLoading && <p>Loading...</p>}
 
