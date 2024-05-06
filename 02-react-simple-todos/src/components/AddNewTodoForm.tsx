@@ -15,7 +15,7 @@ const AddNewTodoForm: React.FC<AddNewTodoFormProps> = ({ onAddTodo, todos }) => 
 		// create a new todo
 		const newTodo = {
 			id: Math.max(0, ...todos.map(todo => todo.id)) + 1,
-			title: inputNewTodoTitle,
+			title: inputNewTodoTitle.trim(),
 			completed: false,
 		}
 
@@ -39,7 +39,11 @@ const AddNewTodoForm: React.FC<AddNewTodoFormProps> = ({ onAddTodo, todos }) => 
 					value={inputNewTodoTitle}
 				/>
 
-				<button className="btn btn-success" type="submit">👶🏻</button>
+				<button
+					className="btn btn-success"
+					disabled={inputNewTodoTitle.trim().length < 3}
+					type="submit"
+				>👶🏻</button>
 			</div>
 		</form>
 	)
