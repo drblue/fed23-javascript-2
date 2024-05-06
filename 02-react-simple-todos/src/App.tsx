@@ -3,6 +3,7 @@ import TodoListItem from "./components/TodoListItem";
 import { Todo } from "./types/Todo";
 import "./assets/scss/App.scss";
 import TodoCounter from "./components/TodoCounter";
+import AddNewTodoForm from "./components/AddNewTodoForm";
 
 function App() {
 	const [todos, setTodos] = useState<Todo[]>([
@@ -11,18 +12,9 @@ function App() {
 		{ id: 3, title: "Drink MOAR coffee", completed: false },
 		{ id: 4, title: "Drink ALL ZE coffee", completed: false },
 	]);
-	const [inputNewTodoTitle, setInputNewTodoTitle] = useState("");
 
-	const handleAddTodo = (e: React.FormEvent) => {
-		e.preventDefault();
-
-		setTodos([...todos, {
-			id: Math.max(0, ...todos.map(todo => todo.id)) + 1,
-			title: inputNewTodoTitle,
-			completed: false,
-		}]);
-
-		setInputNewTodoTitle("");
+	const addTodo = (todo: Todo) => {
+		setTodos([...todos, todo]);
 	}
 
 	const handleToggleTodo = (todo: Todo) => {
@@ -43,35 +35,24 @@ function App() {
 	useEffect(() => {
 		// This code will only be executed **AFTER** the component has rendered
 		// AND if the length of unfinished todos has changed SINCE THE LAST RENDER
-		console.log("🚨 The length of unfinished todos has changed!");
+		// console.log("🚨 The length of unfinished todos has changed!");
 		document.title = `${unfinishedTodos.length} todos unfinished 🇫🇮`;
 	}, [ unfinishedTodos.length ]);
 
 	// This will only be executed when the component is mounted,
 	// and only AFTER the component has been rendered
 	useEffect(() => {
-		console.log("Look mom, I'm a newly mounted component 👶🏻");
+		// console.log("Look mom, I'm a newly mounted component 👶🏻");
 	}, []);
 
 	return (
 		<div className="container">
 			<h1>React Simple Todos</h1>
 
-			<form onSubmit={handleAddTodo} className="mb-3">
-				<div className="input-group">
-					<input
-						aria-label="New todo title"
-						className="form-control"
-						onChange={e => setInputNewTodoTitle(e.target.value)}
-						placeholder="Learn about GTD"
-						required
-						type="text"
-						value={inputNewTodoTitle}
-					/>
-
-					<button className="btn btn-success" type="submit">👶🏻</button>
-				</div>
-			</form>
+			<AddNewTodoForm
+				onAddTodo={addTodo}
+				todos={todos}
+			/>
 
 			{todos.length > 0 && (
 				<>
