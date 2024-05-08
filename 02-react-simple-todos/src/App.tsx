@@ -9,6 +9,13 @@ import "./assets/scss/App.scss";
 function App() {
 	const [todos, setTodos] = useState<Todo[]>([]);
 
+	// One of two use-cases for useRef - save a value between renders without triggering a re-render
+	/*
+	const renderCountRef = useRef(0);
+	renderCountRef.current++;
+	console.log("I have rendered this many times:", renderCountRef.current);
+	*/
+
 	const addTodo = async (todo: NewTodo) => {
 		// const newTodo = await TodosAPI.createTodo(todo);
 		// setTodos([...todos, newTodo]);
