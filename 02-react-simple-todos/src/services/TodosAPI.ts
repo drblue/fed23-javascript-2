@@ -64,6 +64,10 @@ export const createTodoUsingFetch = async (todo: NewTodo) => {
  * @param todo_id Todo to update
  * @param data Data to update todo with
  */
+export const updateTodo = async (todo_id: number, data: Partial<NewTodo>) => {
+	const res = await axios.patch<Todo>(`${BASE_URL}/todos/${todo_id}`, data);
+	return res.data;
+}
 
 /**
  * Delete a todo

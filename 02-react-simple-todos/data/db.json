@@ -3,17 +3,12 @@
     {
       "id": 1,
       "title": "Make coffee",
-      "completed": true
+      "completed": false
     },
     {
       "id": 2,
       "title": "Drink coffee",
-      "completed": true
-    },
-    {
-      "id": 3,
-      "title": "Drink MOAR coffee",
-      "completed": true
+      "completed": false
     },
     {
       "title": "Drink ALL the coffee 🤪",

@@ -30,8 +30,11 @@ function App() {
 		getTodos();
 	}
 
-	const handleToggleTodo = (todo: Todo) => {
-		// FIX ME
+	const handleToggleTodo = async (todo: Todo) => {
+		await TodosAPI.updateTodo(todo.id, {
+			completed: !todo.completed,
+		});
+		getTodos();
 	}
 
 	const finishedTodos = todos.filter(todo => todo.completed);
