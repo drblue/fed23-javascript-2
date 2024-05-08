@@ -4,4 +4,6 @@ export interface Todo {
 	completed: boolean;
 }
 
+export type NewTodo = Omit<Todo, "id">;
+
 // export type TodoList = Todo[];

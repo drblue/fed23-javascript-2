@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import { Todo } from '../types/Todo';
+import { NewTodo } from '../types/Todo';
 
 interface AddNewTodoFormProps {
-	onAddTodo: (todo: Todo) => void;
-	todos: Todo[];
+	onAddTodo: (todo: NewTodo) => void;
 }
 
-const AddNewTodoForm: React.FC<AddNewTodoFormProps> = ({ onAddTodo, todos }) => {
+const AddNewTodoForm: React.FC<AddNewTodoFormProps> = ({ onAddTodo }) => {
 	const [inputNewTodoTitle, setInputNewTodoTitle] = useState("");
 
 	const handleAddTodo = (e: React.FormEvent) => {
@@ -14,7 +13,6 @@ const AddNewTodoForm: React.FC<AddNewTodoFormProps> = ({ onAddTodo, todos }) => 
 
 		// create a new todo
 		const newTodo = {
-			id: Math.max(0, ...todos.map(todo => todo.id)) + 1,
 			title: inputNewTodoTitle.trim(),
 			completed: false,
 		}

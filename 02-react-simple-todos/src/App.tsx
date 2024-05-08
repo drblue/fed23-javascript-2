@@ -3,14 +3,26 @@ import AddNewTodoForm from "./components/AddNewTodoForm";
 import TodoCounter from "./components/TodoCounter";
 import TodoList from "./components/TodoList";
 import * as TodosAPI from "./services/TodosAPI";
-import { Todo } from "./types/Todo";
+import { NewTodo, Todo } from "./types/Todo";
 import "./assets/scss/App.scss";
 
 function App() {
 	const [todos, setTodos] = useState<Todo[]>([]);
 
-	const addTodo = (todo: Todo) => {
-		// FIX ME
+	const addTodo = async (todo: NewTodo) => {
+		// const newTodo = await TodosAPI.createTodo(todo);
+		// setTodos([...todos, newTodo]);
+		await TodosAPI.createTodo(todo);
+		getTodos();
+	}
+
+	const getTodos = async () => {
+		setTodos([]);
+
+		// make request to api
+		const data = await TodosAPI.getTodos();
+
+		setTodos(data);
 	}
 
 	const handleToggleTodo = (todo: Todo) => {
@@ -27,14 +39,6 @@ function App() {
 	console.log("Component is rendering");
 
 	useEffect(() => {
-		const getTodos = async () => {
-			setTodos([]);
-
-			// make request to api
-			const data = await TodosAPI.getTodos();
-
-			setTodos(data);
-		}
 		getTodos();
 	}, []);
 
@@ -44,7 +48,6 @@ function App() {
 
 			<AddNewTodoForm
 				onAddTodo={addTodo}
-				todos={todos}
 			/>
 
 			{todos.length > 0 && (
