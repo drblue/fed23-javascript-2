@@ -25,11 +25,12 @@ function App() {
 		setTodos(data);
 	}
 
-	const handleToggleTodo = (todo: Todo) => {
-		// FIX ME
+	const handleDeleteTodo = async (todo: Todo) => {
+		await TodosAPI.deleteTodo(todo.id);
+		getTodos();
 	}
 
-	const handleDeleteTodo = (todo: Todo) => {
+	const handleToggleTodo = (todo: Todo) => {
 		// FIX ME
 	}
 

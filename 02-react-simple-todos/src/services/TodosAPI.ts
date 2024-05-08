@@ -40,6 +40,8 @@ export const createTodo = async (todo: NewTodo) => {
 
 /**
  * Create a new todo using Fetch
+ *
+ * @deprecated
  */
 export const createTodoUsingFetch = async (todo: NewTodo) => {
 	const res = await fetch(BASE_URL + "/todos", {
@@ -68,3 +70,6 @@ export const createTodoUsingFetch = async (todo: NewTodo) => {
  *
  * @param todo_id Todo to delete
  */
+export const deleteTodo = async (todo_id: number) => {
+	await axios.delete(`${BASE_URL}/todos/${todo_id}`);
+}
