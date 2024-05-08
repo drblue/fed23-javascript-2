@@ -1,0 +1,39 @@
+/**
+ * Forecast
+ */
+
+#forecast {
+	text-align: center;
+	max-width: 90vw;
+	width: 50vmax;
+
+	#location {
+		font-size: 1.2em;
+		text-transform: uppercase;
+	}
+
+	#country {
+		background-color: #ddd;
+		padding: 0.25rem 0.5rem;
+	}
+
+	.temp {
+		font-size: 2em;
+	}
+
+	.wind {
+		font-size: 1.5em;
+	}
+
+	ul.conditions {
+		display: flex;
+		list-style: none;
+		justify-content: center;
+		margin-bottom: 1.5rem;
+		padding: 0;
+
+		li {
+			flex: 0;
+		}
+	}
+}

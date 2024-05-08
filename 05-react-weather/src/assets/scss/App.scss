@@ -1,0 +1,9 @@
+/* Bootstrap 5.2 */
+@import "bootstrap/scss/bootstrap";
+
+/* Generic styles */
+@import 'generic';
+
+/* Components */
+@import 'forecast';
+@import 'search';
