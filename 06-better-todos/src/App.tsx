@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Container from "react-bootstrap/Container";
 import AddNewTodoForm from "./components/AddNewTodoForm";
 import TodoCounter from "./components/TodoCounter";
 import TodoList from "./components/TodoList";
@@ -54,8 +55,8 @@ function App() {
 	}, []);
 
 	return (
-		<div className="container">
-			<h1>React Simple Todos</h1>
+		<Container>
+			<h1>React Better Todos</h1>
 
 			<AddNewTodoForm
 				onAddTodo={addTodo}
@@ -84,7 +85,7 @@ function App() {
 			{!todos.length && (
 				<div className="alert alert-success">You ain't got no todos 🤩!</div>
 			)}
-		</div>
+		</Container>
 	);
 }
 
