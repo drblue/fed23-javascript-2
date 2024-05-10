@@ -5,7 +5,7 @@ const HomePage = () => {
 		<>
 			<h1>Welcome to Better Todos!</h1>
 
-			<p>Because when your life is on fire 🔥, you need a <Link to="/todos">todo list</Link>.</p>
+			<p>Because when your life is on fire 🔥, you need a <Link to="/lolcats">link that does not exist</Link>.</p>
 		</>
 	)
 }
