@@ -38,12 +38,14 @@ function App() {
 			<SearchCity onSearch={handleSearch} />
 
 			{error && (
-				<div className="alert alert-warning">
+				<div className="alert alert-warning" role="alert">
 					{error}
 				</div>
 			)}
 
-			{isLoading && <img src={Airplane} className="img-fluid py-5 w-100" />}
+			{isLoading && (
+				<img src={Airplane} className="img-fluid py-5 w-100" alt="Airplane flying through the clouds" />
+			)}
 
 			{currentWeather && <Forecast data={currentWeather} />}
 		</div>
