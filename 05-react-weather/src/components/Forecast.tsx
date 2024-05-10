@@ -7,15 +7,18 @@ interface ForecastProps {
 }
 
 const Forecast: React.FC<ForecastProps> = ({ data }) => {
-	const banner = (data.dt > data.sys.sunrise && data.dt < data.sys.sunset)
-		? dayBanner
-		: nightBanner;
+	const daytime = (data.dt > data.sys.sunrise && data.dt < data.sys.sunset);
+	const banner = daytime ? dayBanner : nightBanner;
 	const freshness = new Date(data.dt * 1000);
 
 	return (
 		<div id="forecast">
 			<div className="card">
-				<img src={banner} className="card-img-top" alt="Daytime, nighttime, daytime, nighttime" />
+				<img
+					src={banner}
+					className="card-img-top"
+					alt={daytime ? "Clouds on a bright sky" : "Clouds on a dark sky with a mooncrest"}
+				/>
 
 				<div className="card-body">
 					<h5 className="card-title" id="location">
