@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import ListGroup from "react-bootstrap/ListGroup";
+import { Link } from "react-router-dom";
 import AddNewTodoForm from "../components/AddNewTodoForm";
 import TodoCounter from "../components/TodoCounter";
-import TodoList from "../components/TodoList";
 import * as TodosAPI from "../services/TodosAPI";
 import { NewTodo, Todo } from "../types/Todo";
 
@@ -31,6 +32,7 @@ function TodosPage() {
 		setTodos(data);
 	}
 
+	/*
 	const handleDeleteTodo = async (todo: Todo) => {
 		await TodosAPI.deleteTodo(todo.id);
 		getTodos();
@@ -42,9 +44,9 @@ function TodosPage() {
 		});
 		getTodos();
 	}
+	*/
 
 	const finishedTodos = todos.filter(todo => todo.completed);
-	const unfinishedTodos = todos.filter(todo => !todo.completed);
 
 	console.log("Component is rendering");
 
@@ -54,7 +56,7 @@ function TodosPage() {
 
 	return (
 		<>
-			<h1>React Better Todos</h1>
+			<h1>Todos</h1>
 
 			<AddNewTodoForm
 				onAddTodo={addTodo}
@@ -62,19 +64,19 @@ function TodosPage() {
 
 			{todos.length > 0 && (
 				<>
-					<h2 className="mb-2 h5">💪🏻 Stuff I got to do</h2>
-					<TodoList
-						onDelete={handleDeleteTodo}
-						onToggle={handleToggleTodo}
-						todos={unfinishedTodos}
-					/>
-
-					<h2 className="mb-2 h5">🥺 Stuff I've done</h2>
-					<TodoList
-						onDelete={handleDeleteTodo}
-						onToggle={handleToggleTodo}
-						todos={finishedTodos}
-					/>
+					<ListGroup className="todolist">
+						{todos.map(todo => (
+							<ListGroup.Item
+								action
+								as={Link}
+								className={todo.completed ? "done" : ""}
+								key={todo.id}
+								to={`/todos/${todo.id}`}
+							>
+								<span className="todo-title">{todo.title}</span>
+							</ListGroup.Item>
+						))}
+					</ListGroup>
 
 					<TodoCounter finished={finishedTodos.length} total={todos.length} />
 				</>
