@@ -11,6 +11,7 @@ function App() {
 	const [isLoading, setIsLoading] = useState(false);
 
 	const handleSearch = async (location: string) => {
+		setCurrentWeather(null);
 		setIsLoading(true);
 
 		// Call API and ask for weather in `location`
