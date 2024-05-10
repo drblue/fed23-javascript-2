@@ -4,7 +4,19 @@ const TodoPage = () => {
 	const { id } = useParams();
 
 	return (
-		<div>Todo ID {id}</div>
+		<>
+			<h1>TITLE for todo with id {id}</h1>
+
+			<p><strong>Status:</strong> COMPLETED|NOT COMPLETED</p>
+
+			<div className="buttons mb-3">
+				{/* Toggle */}
+
+				{/* Delete */}
+			</div>
+
+			{/* Here be button-link back to all todos */}
+		</>
 	)
 }
 
