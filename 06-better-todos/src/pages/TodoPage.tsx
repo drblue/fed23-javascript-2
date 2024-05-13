@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { Todo } from "../types/Todo";
 import * as TodosAPI from "../services/TodosAPI";
 import ConfirmationModal from "../components/ConfirmationModal";
+import AutoDismissingAlert from "../components/AutoDismissingAlert";
 
 const TodoPage = () => {
 	const [todo, setTodo] = useState<Todo | null>(null);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 	const { id } = useParams();
 	const todoId = Number(id);
+	const location = useLocation();
 	const navigate = useNavigate();
 
 	// Delete todo in API
@@ -60,6 +62,15 @@ const TodoPage = () => {
 	return (
 		<>
 			<h1 title={`Todo #${todo.id}`}>{todo.title}</h1>
+
+			{location.state && location.state.status && (
+				<AutoDismissingAlert
+					hideAfter={1000}
+					variant={location.state.status.type}
+				>
+					{location.state.status.message}
+				</AutoDismissingAlert>
+			)}
 
 			<p>
 				<strong>Status:</strong> {todo.completed

@@ -52,7 +52,14 @@ const EditTodoPage = () => {
 		});
 
 		// Redirect user to /todos/:id
-		navigate(`/todos/${todo.id}`);
+		navigate(`/todos/${todo.id}`, {
+			state: {
+				status: {
+					message: `Todo "${todo.title}" was deleted`,
+					type: "success",
+				}
+			}
+		});
 	}
 
 	useEffect(() => {
