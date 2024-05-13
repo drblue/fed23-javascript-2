@@ -3,19 +3,17 @@ import Button from "react-bootstrap/Button";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Todo } from "../types/Todo";
 import * as TodosAPI from "../services/TodosAPI";
+import ConfirmationModal from "../components/ConfirmationModal";
 
 const TodoPage = () => {
 	const [todo, setTodo] = useState<Todo | null>(null);
+	const [showDeleteModal, setShowDeleteModal] = useState(false);
 	const { id } = useParams();
 	const todoId = Number(id);
 	const navigate = useNavigate();
 
 	// Delete todo in API
 	const deleteTodo = async (todo: Todo) => {
-		if (!window.confirm("U SURE BRO?!")) {
-			return;
-		}
-
 		// Call TodosAPI and delete the todo
 		await TodosAPI.deleteTodo(todo.id);
 
@@ -72,7 +70,16 @@ const TodoPage = () => {
 			<div className="buttons mb-3">
 				<Button variant="success" onClick={() => toggleTodo(todo)}>Toggle</Button>
 
-				<Button variant="danger" onClick={() => deleteTodo(todo)}>Delete</Button>
+				<Button variant="danger" onClick={() => setShowDeleteModal(true)}>Delete</Button>
+				<ConfirmationModal
+					onCancel={() => setShowDeleteModal(false)}
+					onConfirm={() => deleteTodo(todo)}
+					show={showDeleteModal}
+					title="Confirm delete"
+					variant="danger"
+				>
+					Delete todo "{todo.title}"?
+				</ConfirmationModal>
 			</div>
 
 			<Link to="/todos" className="btn btn-secondary" role="button">
