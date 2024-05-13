@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Button from "react-bootstrap/Button";
 import { Link, useParams } from "react-router-dom";
 import { Todo } from "../types/Todo";
 import * as TodosAPI from "../services/TodosAPI";
@@ -15,6 +16,17 @@ const TodoPage = () => {
 
 		// update todo state with data
 		setTodo(data);
+	}
+
+	// Toggle todo in API
+	const toggleTodo = async (todo: Todo) => {
+		// Call TodosAPI and update the todo
+		await TodosAPI.updateTodo(todo.id, {
+			completed: !todo.completed,
+		});
+
+		// Refresh todo
+		getTodo(todoId);
 	}
 
 	useEffect(() => {
@@ -36,7 +48,7 @@ const TodoPage = () => {
 			</p>
 
 			<div className="buttons mb-3">
-				{/* Toggle */}
+				<Button variant="success" onClick={() => toggleTodo(todo)}>Toggle</Button>
 
 				{/* Delete */}
 			</div>

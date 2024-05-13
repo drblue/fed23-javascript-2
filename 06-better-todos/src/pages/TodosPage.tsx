@@ -30,12 +30,7 @@ function TodosPage() {
 		getTodos();
 	}
 
-	const handleToggleTodo = async (todo: Todo) => {
-		await TodosAPI.updateTodo(todo.id, {
-			completed: !todo.completed,
-		});
-		getTodos();
-	}
+
 	*/
 
 	console.log("Component is rendering");
