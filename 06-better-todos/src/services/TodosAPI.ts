@@ -5,6 +5,7 @@ import axios from "axios";
 import { NewTodo, Todo } from "../types/Todo";
 
 const BASE_URL = "http://localhost:3000";
+const FAKE_DELAY = 1500;
 
 /**
  * Get all todos
@@ -33,6 +34,9 @@ export const getTodosUsingFetch = async () => {
  */
 export const getTodo = async (todo_id: number) => {
 	const res = await axios.get<Todo>(`${BASE_URL}/todos/${todo_id}`);
+
+	!!FAKE_DELAY && await new Promise(r => setTimeout(r, FAKE_DELAY));
+
 	return res.data;
 }
 
