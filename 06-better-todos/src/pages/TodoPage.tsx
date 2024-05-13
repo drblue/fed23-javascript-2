@@ -70,6 +70,8 @@ const TodoPage = () => {
 			<div className="buttons mb-3">
 				<Button variant="success" onClick={() => toggleTodo(todo)}>Toggle</Button>
 
+				<Link to={`/todos/${todoId}/edit`} className="btn btn-warning" role="button">Edit</Link>
+
 				<Button variant="danger" onClick={() => setShowDeleteModal(true)}>Delete</Button>
 				<ConfirmationModal
 					onCancel={() => setShowDeleteModal(false)}
