@@ -12,6 +12,10 @@ const TodoPage = () => {
 
 	// Delete todo in API
 	const deleteTodo = async (todo: Todo) => {
+		if (!window.confirm("U SURE BRO?!")) {
+			return;
+		}
+
 		// Call TodosAPI and delete the todo
 		await TodosAPI.deleteTodo(todo.id);
 
