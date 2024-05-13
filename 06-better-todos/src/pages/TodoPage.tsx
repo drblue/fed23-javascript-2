@@ -16,7 +16,9 @@ const TodoPage = () => {
 		await TodosAPI.deleteTodo(todo.id);
 
 		// Redirect to "/todos"
-		navigate("/todos");
+		navigate("/todos", {
+			replace: true,
+		});
 	}
 
 	// Get todo from API
