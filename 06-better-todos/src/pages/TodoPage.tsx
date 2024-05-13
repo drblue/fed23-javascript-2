@@ -21,12 +21,12 @@ const TodoPage = () => {
 	// Toggle todo in API
 	const toggleTodo = async (todo: Todo) => {
 		// Call TodosAPI and update the todo
-		await TodosAPI.updateTodo(todo.id, {
+		const updatedTodo = await TodosAPI.updateTodo(todo.id, {
 			completed: !todo.completed,
 		});
 
-		// Refresh todo
-		getTodo(todoId);
+		// Update todo state with the updated todo
+		setTodo(updatedTodo);
 	}
 
 	useEffect(() => {
