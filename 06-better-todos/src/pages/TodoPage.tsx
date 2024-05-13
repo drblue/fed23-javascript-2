@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Todo } from "../types/Todo";
 import * as TodosAPI from "../services/TodosAPI";
 
@@ -8,6 +8,16 @@ const TodoPage = () => {
 	const [todo, setTodo] = useState<Todo | null>(null);
 	const { id } = useParams();
 	const todoId = Number(id);
+	const navigate = useNavigate();
+
+	// Delete todo in API
+	const deleteTodo = async (todo: Todo) => {
+		// Call TodosAPI and delete the todo
+		await TodosAPI.deleteTodo(todo.id);
+
+		// Redirect to "/todos"
+		navigate("/todos");
+	}
 
 	// Get todo from API
 	const getTodo = async (id: number) => {
@@ -50,7 +60,7 @@ const TodoPage = () => {
 			<div className="buttons mb-3">
 				<Button variant="success" onClick={() => toggleTodo(todo)}>Toggle</Button>
 
-				{/* Delete */}
+				<Button variant="danger" onClick={() => deleteTodo(todo)}>Delete</Button>
 			</div>
 
 			<Link to="/todos" className="btn btn-secondary" role="button">

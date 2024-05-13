@@ -24,15 +24,6 @@ function TodosPage() {
 		setTodos(data);
 	}
 
-	/*
-	const handleDeleteTodo = async (todo: Todo) => {
-		await TodosAPI.deleteTodo(todo.id);
-		getTodos();
-	}
-
-
-	*/
-
 	console.log("Component is rendering");
 
 	useEffect(() => {
