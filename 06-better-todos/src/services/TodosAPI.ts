@@ -29,6 +29,14 @@ export const getTodosUsingFetch = async () => {
 }
 
 /**
+ * Get a single todo
+ */
+export const getTodo = async (todo_id: number) => {
+	const res = await axios.get<Todo>(`${BASE_URL}/todos/${todo_id}`);
+	return res.data;
+}
+
+/**
  * Create a new todo
  *
  * @param data Object with properties and values for the new todo
