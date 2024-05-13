@@ -57,7 +57,7 @@ const TodoPage = () => {
 
 	return (
 		<>
-			<h1>{todo.title} {id}</h1>
+			<h1 title={`Todo #${todo.id}`}>{todo.title}</h1>
 
 			<p>
 				<strong>Status:</strong> {todo.completed
