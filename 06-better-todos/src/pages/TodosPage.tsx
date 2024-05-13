@@ -1,19 +1,14 @@
 import { useEffect, useState } from "react";
+import Alert from "react-bootstrap/Alert";
 import ListGroup from "react-bootstrap/ListGroup";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import TodoCounter from "../components/TodoCounter";
 import * as TodosAPI from "../services/TodosAPI";
 import { Todo } from "../types/Todo";
 
 function TodosPage() {
 	const [todos, setTodos] = useState<Todo[] | null>(null);
-
-	// One of two use-cases for useRef - save a value between renders without triggering a re-render
-	/*
-	const renderCountRef = useRef(0);
-	renderCountRef.current++;
-	console.log("I have rendered this many times:", renderCountRef.current);
-	*/
+	const location = useLocation();
 
 	const getTodos = async () => {
 		setTodos(null);
@@ -33,6 +28,12 @@ function TodosPage() {
 	return (
 		<>
 			<h1>Todos</h1>
+
+			{location.state && location.state.status && (
+				<Alert variant={location.state.status.type}>
+					{location.state.status.message}
+				</Alert>
+			)}
 
 			{todos && todos.length > 0 && (
 				<>
