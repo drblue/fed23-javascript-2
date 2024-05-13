@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import Alert from "react-bootstrap/Alert";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Link, useLocation } from "react-router-dom";
+import AutoDismissingAlert from "../components/AutoDismissingAlert";
 import TodoCounter from "../components/TodoCounter";
 import * as TodosAPI from "../services/TodosAPI";
 import { Todo } from "../types/Todo";
@@ -30,9 +30,12 @@ function TodosPage() {
 			<h1>Todos</h1>
 
 			{location.state && location.state.status && (
-				<Alert variant={location.state.status.type}>
+				<AutoDismissingAlert
+					hideAfter={1000}
+					variant={location.state.status.type}
+				>
 					{location.state.status.message}
-				</Alert>
+				</AutoDismissingAlert>
 			)}
 
 			{todos && todos.length > 0 && (
