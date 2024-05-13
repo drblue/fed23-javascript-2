@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Alert from "react-bootstrap/Alert";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AddNewTodoForm from "../components/AddNewTodoForm"
 import * as TodosAPI from "../services/TodosAPI";
 import { NewTodo, Todo } from "../types/Todo";
@@ -8,6 +8,7 @@ import { NewTodo, Todo } from "../types/Todo";
 const CreateTodoPage = () => {
 	const [createdTodo, setCreatedTodo] = useState<Todo | null>(null);
 	const [error, setError] = useState<string | false>(false);
+	const navigate = useNavigate();
 
 	const addTodo = async (todo: NewTodo) => {
 		setCreatedTodo(null);
@@ -17,6 +18,10 @@ const CreateTodoPage = () => {
 			const data = await TodosAPI.createTodo(todo);
 
 			setCreatedTodo(data);
+
+			setTimeout(() => {
+				navigate("/todos");
+			}, 2000);
 		} catch (err) {
 			if (err instanceof Error) {
 				setError(err.message);
@@ -38,7 +43,8 @@ const CreateTodoPage = () => {
 
 			{createdTodo && (
 				<Alert variant="success">
-					<p>Created todo successfully</p>
+					<h2 className="h5">Created todo successfully</h2>
+					<p>Redirecting back to all todos in 2 seconds...</p>
 
 					<Link to={`/todos/${createdTodo.id}`} className="btn btn-success" role="button">
 						Go to todo &raquo;
