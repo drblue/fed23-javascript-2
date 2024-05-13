@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import { Link, useParams } from "react-router-dom";
 import { Todo } from "../types/Todo";
 import * as TodosAPI from "../services/TodosAPI";
 
@@ -41,7 +42,9 @@ const TodoPage = () => {
 				{/* Delete */}
 			</div>
 
-			{/* Here be button-link back to all todos */}
+			<Link to="/todos" className="btn btn-secondary" role="button">
+				&laquo; All todos
+			</Link>
 		</>
 	)
 }
