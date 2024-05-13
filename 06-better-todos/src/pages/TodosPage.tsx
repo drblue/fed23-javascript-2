@@ -6,7 +6,7 @@ import * as TodosAPI from "../services/TodosAPI";
 import { Todo } from "../types/Todo";
 
 function TodosPage() {
-	const [todos, setTodos] = useState<Todo[]>([]);
+	const [todos, setTodos] = useState<Todo[] | null>(null);
 
 	// One of two use-cases for useRef - save a value between renders without triggering a re-render
 	/*
@@ -16,7 +16,7 @@ function TodosPage() {
 	*/
 
 	const getTodos = async () => {
-		setTodos([]);
+		setTodos(null);
 
 		// make request to api
 		const data = await TodosAPI.getTodos();
@@ -38,8 +38,6 @@ function TodosPage() {
 	}
 	*/
 
-	const finishedTodos = todos.filter(todo => todo.completed);
-
 	console.log("Component is rendering");
 
 	useEffect(() => {
@@ -50,7 +48,7 @@ function TodosPage() {
 		<>
 			<h1>Todos</h1>
 
-			{todos.length > 0 && (
+			{todos && todos.length > 0 && (
 				<>
 					<ListGroup className="todolist">
 						{todos.map(todo => (
@@ -66,11 +64,11 @@ function TodosPage() {
 						))}
 					</ListGroup>
 
-					<TodoCounter finished={finishedTodos.length} total={todos.length} />
+					<TodoCounter finished={todos.filter(todo => todo.completed).length} total={todos.length} />
 				</>
 			)}
 
-			{!todos.length && (
+			{todos && !todos.length && (
 				<div className="alert alert-success">You ain't got no todos 🤩!</div>
 			)}
 		</>
