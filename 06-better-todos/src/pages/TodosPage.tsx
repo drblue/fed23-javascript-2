@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Link } from "react-router-dom";
-import AddNewTodoForm from "../components/AddNewTodoForm";
 import TodoCounter from "../components/TodoCounter";
 import * as TodosAPI from "../services/TodosAPI";
-import { NewTodo, Todo } from "../types/Todo";
+import { Todo } from "../types/Todo";
 
 function TodosPage() {
 	const [todos, setTodos] = useState<Todo[]>([]);
@@ -15,13 +14,6 @@ function TodosPage() {
 	renderCountRef.current++;
 	console.log("I have rendered this many times:", renderCountRef.current);
 	*/
-
-	const addTodo = async (todo: NewTodo) => {
-		// const newTodo = await TodosAPI.createTodo(todo);
-		// setTodos([...todos, newTodo]);
-		await TodosAPI.createTodo(todo);
-		getTodos();
-	}
 
 	const getTodos = async () => {
 		setTodos([]);
@@ -57,10 +49,6 @@ function TodosPage() {
 	return (
 		<>
 			<h1>Todos</h1>
-
-			<AddNewTodoForm
-				onAddTodo={addTodo}
-			/>
 
 			{todos.length > 0 && (
 				<>

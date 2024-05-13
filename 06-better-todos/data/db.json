@@ -14,6 +14,21 @@
       "title": "Drink ALL the coffee 🤪",
       "completed": false,
       "id": 4
+    },
+    {
+      "title": "This is my new todo",
+      "completed": false,
+      "id": 5
+    },
+    {
+      "title": "This is my second new todo",
+      "completed": false,
+      "id": 6
+    },
+    {
+      "title": "This is my new new todo",
+      "completed": false,
+      "id": 7
     }
   ]
 }
