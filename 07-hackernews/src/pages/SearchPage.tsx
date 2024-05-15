@@ -5,26 +5,53 @@ import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
 
 const SearchPage = () => {
+	const [error, setError] = useState<string | false>(false);
+	const [isLoading, setIsLoading] = useState(false);
+	const [searchInput, setSearchInput] = useState("");
+	const [searchResult, setSearchResult] = useState(null);  // fix me
+
+	const handleSubmit = (e: React.FormEvent) => {
+		e.preventDefault();
+
+		// prevent smol haxx0rs
+		if (searchInput.trim().length < 2) {
+			// slap user in face
+			return;
+		}
+
+		// search HN
+	}
+
 	return (
 		<>
 			<h1>🔎🔦👀</h1>
 
-			<Form className="mb-4">
+			<Form className="mb-4" onSubmit={handleSubmit}>
 				<Form.Group className="mb-3" controlId="searchQuery">
 					<Form.Label>Search Query</Form.Label>
-					<Form.Control type="text" placeholder="Enter your search query" />
+					<Form.Control
+						onChange={e => setSearchInput(e.target.value)}
+						placeholder="Enter your search query"
+						required
+						type="text"
+						value={searchInput}
+					/>
 				</Form.Group>
 
 				<div className="d-flex justify-content-end">
-					<Button variant="success" type="submit">
+					<Button
+						disabled={searchInput.trim().length < 2}
+						type="submit"
+						variant="success"
+					>
 						Search
 					</Button>
 				</div>
 			</Form>
 
-			{false && <Alert variant='warning'>DIS MY ERROR</Alert>}
+			{error && <Alert variant='warning'>{error}</Alert>}
 
-			{false && <p>🤔 Loading...</p>}
+			{isLoading && <p>🤔 Loading...</p>}
 
 			{true && (
 				<div id="search-result">
