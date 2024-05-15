@@ -92,9 +92,15 @@ const SearchPage = () => {
 					{searchResult.hits.length > 0 && (
 						<ListGroup className="mb-3">
 							{searchResult.hits.map((hit) => (
-								<ListGroup.Item action href={hit.url} key={hit.objectID}>
+								<ListGroup.Item
+									action
+									href={hit.url}
+									key={hit.objectID}
+								>
 									<h2 className="h3">{hit.title}</h2>
-									<p className="text-muted small mb-0">{hit.points} points by {hit.author} at {hit.created_at}</p>
+									<p className="text-muted small mb-0">
+										{hit.points} points by {hit.author} at {hit.created_at}
+									</p>
 								</ListGroup.Item>
 							))}
 						</ListGroup>
