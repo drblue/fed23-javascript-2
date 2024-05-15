@@ -20,6 +20,7 @@ const SearchPage = () => {
 		}
 
 		// search HN
+		console.log("Would search HN for:", searchInput);
 	}
 
 	return (
