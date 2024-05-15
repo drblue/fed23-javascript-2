@@ -3,24 +3,55 @@ import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
+import { searchByDate as HN_searchByDate } from "../services/HackerNewsAPI";
+import { HN_SearchResponse } from "../services/HackerNewsAPI.types";
 
 const SearchPage = () => {
 	const [error, setError] = useState<string | false>(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [searchInput, setSearchInput] = useState("");
-	const [searchResult, setSearchResult] = useState(null);  // fix me
+	const [searchResult, setSearchResult] = useState<HN_SearchResponse | null>(null);  // fix me
+
+	const searchHackerNews = async (searchQuery: string) => {
+		// reset state + set loading to true
+		setError(false);
+		setIsLoading(true);
+		setSearchResult(null);
+
+		// get search results from API
+		try {
+			const data = await HN_searchByDate(searchQuery);
+
+			// update state with search results
+			setSearchResult(data);
+
+		} catch (err) {
+			// handle any errors
+			if (err instanceof Error) {
+				setError(err.message);
+			} else {
+				setError("Aouch, stop throwing things that are not Errors at me");
+			}
+		}
+
+		// set loading to false
+		setIsLoading(false);
+	}
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 
+		// 🧹
+		const trimmedSearchInput = searchInput.trim();
+
 		// prevent smol haxx0rs
-		if (searchInput.trim().length < 2) {
+		if (trimmedSearchInput.length < 2) {
 			// slap user in face
 			return;
 		}
 
 		// search HN
-		console.log("Would search HN for:", searchInput);
+		searchHackerNews(trimmedSearchInput);
 	}
 
 	return (
@@ -54,18 +85,20 @@ const SearchPage = () => {
 
 			{isLoading && <p>🤔 Loading...</p>}
 
-			{true && (
+			{searchResult && (
 				<div id="search-result">
-					<p>Showing HITS search results for QUERY...</p>
+					<p>Showing {searchResult.nbHits} search results for "{searchInput}"...</p>
 
-					<ListGroup className="mb-3">
-						{[{}].map((hit) => (
-							<ListGroup.Item action href={""} key={""}>
-								<h2 className="h3">TITLE</h2>
-								<p className="text-muted small mb-0">POINTS points by AUTHOR at CREATED_AT</p>
-							</ListGroup.Item>
-						))}
-					</ListGroup>
+					{searchResult.hits.length > 0 && (
+						<ListGroup className="mb-3">
+							{searchResult.hits.map((hit) => (
+								<ListGroup.Item action href={hit.url} key={hit.objectID}>
+									<h2 className="h3">{hit.title}</h2>
+									<p className="text-muted small mb-0">{hit.points} points by {hit.author} at {hit.created_at}</p>
+								</ListGroup.Item>
+							))}
+						</ListGroup>
+					)}
 
 					<div className="d-flex justify-content-between align-items-center">
 						<div className="prev">
