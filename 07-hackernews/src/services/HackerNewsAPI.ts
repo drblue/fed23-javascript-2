@@ -34,7 +34,7 @@ const get = async <T>(endpoint: string) => {
  * @param page Page of search result to get
  */
 export const search = (query: string, page = 0) => {
-	return get(`/search?query=${query}&tags=story&page=${page}`);
+	return get<HN_SearchResponse>(`/search?query=${query}&tags=story&page=${page}`);
 }
 
 /**
