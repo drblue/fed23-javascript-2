@@ -8,7 +8,9 @@ const NotFoundPage = () => {
 		<>
 			<h1>Sorry, that page could not be found 😔</h1>
 
-			<Image src={SadKittyCat} fluid />
+			<div className="mb-4">
+				<Image src={SadKittyCat} fluid />
+			</div>
 
 			<Link to="/">
 				<Button variant="primary">Screw you guys, I'm going hööme</Button>
