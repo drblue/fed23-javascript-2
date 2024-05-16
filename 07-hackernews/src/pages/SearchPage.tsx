@@ -15,6 +15,7 @@ const SearchPage = () => {
 	const [searchInput, setSearchInput] = useState("");
 	const [searchResult, setSearchResult] = useState<HN_SearchResponse | null>(null);
 	const [searchParams, setSearchParams] = useSearchParams();
+	const inputSearchQueryEl = useRef<HTMLInputElement>(null);
 
 	// get "query=" from URL Search Params
 	const searchParamsQuery = searchParams.get("query");   // search?query=tesla
@@ -74,6 +75,11 @@ const SearchPage = () => {
 		searchHackerNews(searchParamsQuery, page);
 	}, [searchParamsQuery, page]);
 
+	// Focus on input field
+	useEffect(() => {
+		inputSearchQueryEl.current?.focus();
+	}, []);
+
 	return (
 		<>
 			<h1>🔎🔦👀</h1>
@@ -84,6 +90,7 @@ const SearchPage = () => {
 					<Form.Control
 						onChange={e => setSearchInput(e.target.value)}
 						placeholder="Enter your search query"
+						ref={inputSearchQueryEl}
 						required
 						type="text"
 						value={searchInput}
