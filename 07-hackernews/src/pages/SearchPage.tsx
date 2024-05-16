@@ -3,6 +3,7 @@ import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
+import { useSearchParams } from "react-router-dom";
 import Pagination from "../components/Pagination";
 import { searchByDate as HN_searchByDate } from "../services/HackerNewsAPI";
 import { HN_SearchResponse } from "../services/HackerNewsAPI.types";
@@ -13,7 +14,10 @@ const SearchPage = () => {
 	const [page, setPage] = useState(0);
 	const [searchInput, setSearchInput] = useState("");
 	const [searchResult, setSearchResult] = useState<HN_SearchResponse | null>(null);
-	const queryRef = useRef("");
+	const [searchParams, setSearchParams] = useSearchParams();
+
+	// get "query=" from URL Search Params
+	const searchParamsQuery = searchParams.get("query");   // search?query=tesla
 
 	const searchHackerNews = async (searchQuery: string, searchPage = 0) => {
 		console.log(`Searching for "${searchQuery}" and page ${searchPage}`);
@@ -21,9 +25,6 @@ const SearchPage = () => {
 		setError(false);
 		setIsLoading(true);
 		setSearchResult(null);
-
-		// save searchQuery to queryRef
-		queryRef.current = searchQuery;
 
 		// get search results from API
 		try {
@@ -59,17 +60,19 @@ const SearchPage = () => {
 
 		// search HN
 		setPage(0);
-		searchHackerNews(trimmedSearchInput, 0);
+
+		// save searchQuery to queryRef
+		setSearchParams({ query: trimmedSearchInput });   // search?query=${trimmedSearchInput}
 	}
 
 	// React to changes in our page state
 	useEffect(() => {
-		if (!queryRef.current) {
+		if (!searchParamsQuery) {
 			return;
 		}
 
-		searchHackerNews(queryRef.current, page);
-	}, [page]);
+		searchHackerNews(searchParamsQuery, page);
+	}, [searchParamsQuery, page]);
 
 	return (
 		<>
@@ -104,7 +107,7 @@ const SearchPage = () => {
 
 			{searchResult && (
 				<div id="search-result">
-					<p>Showing {searchResult.nbHits} search results for "{queryRef.current}"...</p>
+					<p>Showing {searchResult.nbHits} search results for "{searchParamsQuery}"...</p>
 
 					{searchResult.hits.length > 0 && (
 						<ListGroup className="mb-3">
