@@ -1,3 +1,7 @@
 $headings-margin-bottom: 0.75em;
 
 @import "bootstrap/scss/bootstrap";
+
+#App {
+	min-height: 100vh;
+}

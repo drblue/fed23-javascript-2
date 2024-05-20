@@ -1,15 +1,9 @@
-import { useContext } from "react";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
-import { ThemeContext } from "../contexts/ThemeContextProvider";
+import useTheme from "../hooks/useTheme";
 
 const HomePage = () => {
-	const themeContext = useContext(ThemeContext);
-	if (!themeContext) {
-		throw new Error("Trying to use ThemeContext outside of ThemeContextProvider. SRSLY?!");
-	}
-
-	const { isDarkMode, toggleTheme } = themeContext;
+	const { isDarkMode, toggleTheme } = useTheme();
 
 	return (
 		<>
