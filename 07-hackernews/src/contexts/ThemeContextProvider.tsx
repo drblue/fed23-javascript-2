@@ -1,23 +1,26 @@
 import { createContext, useState } from "react";
 
-type ThemeMode = "light" | "dark";
-
 interface ThemeContextType {
-	theme: ThemeMode;
+	isDarkMode: boolean;
+	toggleTheme: () => void;
 }
 
 // This creates the actual context and sets the context's default value
-export const ThemeContext = createContext<ThemeContextType>({ theme: "dark" });
+export const ThemeContext = createContext<ThemeContextType | null>(null);
 
 interface ThemeContextProviderProps {
 	children: React.ReactNode;
 }
 
 const ThemeContextProvider: React.FC<ThemeContextProviderProps> = ({ children }) => {
-	const [theme, setTheme] = useState<ThemeMode>("dark");
+	const [isDarkMode, setIsDarkMode] = useState(true);
+
+	const toggleTheme = () => {
+		setIsDarkMode(!isDarkMode);
+	}
 
 	return (
-		<ThemeContext.Provider value={{ theme }}>
+		<ThemeContext.Provider value={{ isDarkMode, toggleTheme }}>
 			{children}
 		</ThemeContext.Provider>
 	)
