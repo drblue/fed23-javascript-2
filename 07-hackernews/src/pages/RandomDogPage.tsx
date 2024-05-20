@@ -23,6 +23,12 @@ const RandomDogPage = () => {
 					className="ms-1"
 					onClick={() => {}}
 				>MOAR doggos!!</Button>
+
+				<Button
+					className="ms-1"
+					variant="warning"
+					onClick={() => {}}
+				>Make things go 💣</Button>
 			</div>
 
 			{isLoading && <p>Loading...</p>}
