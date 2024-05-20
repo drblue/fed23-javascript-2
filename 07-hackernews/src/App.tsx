@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import Container from "react-bootstrap/Container";
 import { Routes, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
@@ -10,8 +11,14 @@ import "./assets/scss/App.scss";
 function App() {
 	const { isDarkMode } = useTheme();
 
+	const cssClasses = clsx({
+		"bg-white": !isDarkMode,
+		"text-dark": !isDarkMode,
+	});
+	// console.log("cssClasses:", cssClasses);
+
 	return (
-		<div id="App" className={!isDarkMode ? "bg-white text-dark" : ""}>
+		<div id="App" className={cssClasses}>
 			<Navigation />
 
 			<Container className="py-3">
