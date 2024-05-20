@@ -1,29 +1,31 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
-import { RandomDogImage } from "../types/DogAPI.types";
+import useGetRandomDogImage from "../hooks/useGetRandomDogImage";
 
 const RandomDogPage = () => {
-	const [data, setData] = useState<RandomDogImage | null>(null);
-
-	const getData = async () => {
-		// get data from api
-		const res = await axios.get<RandomDogImage>("https://dog.ceo/api/breeds/image/random");
-		await new Promise(r => setTimeout(r, 1500));
-
-		// update state with data
-		setData(res.data);
-	}
-
-	useEffect(() => {
-		getData();
-	}, []);
+	const { data, isLoading, setUrl } = useGetRandomDogImage();
 
 	return (
 		<>
 			<h1>A random doggo 🐶</h1>
 
-			{!data && <p>Loading...</p>}
+			<div className="mb-3">
+				<Button
+					onClick={() => setUrl("https://dog.ceo/api/breeds/image/random")}
+				>Random doggo</Button>
+
+				<Button
+					className="ms-1"
+					onClick={() => setUrl("https://dog.ceo/api/breed/shiba/images/random")}
+				>Random Shiba fluffer</Button>
+
+				<Button
+					className="ms-1"
+					onClick={() => {}}
+				>MOAR doggos!!</Button>
+			</div>
+
+			{isLoading && <p>Loading...</p>}
 
 			{data && data.status === "success" && (
 				<div>
