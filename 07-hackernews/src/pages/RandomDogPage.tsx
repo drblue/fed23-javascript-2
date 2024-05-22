@@ -52,4 +52,3 @@ const RandomDogPage = () => {
 }
 
 export default RandomDogPage;
-
