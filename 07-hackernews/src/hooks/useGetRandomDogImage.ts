@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { RandomDogImage } from "../types/DogAPI.types";
 
@@ -21,21 +21,19 @@ const useGetRandomDogImage = () => {
 		setIsLoading(false);
 	};
 
-	const execute = () => {
-		if (!url) {
-			return;
-		}
-
-		getData(url);
-	}
-
-	useEffect(() => {
+	const execute = useCallback( () => {
 		if (!url) {
 			return;
 		}
 
 		getData(url);
 	}, [url]);
+
+	console.log("execute:", execute);
+
+	useEffect(() => {
+		execute();
+	}, [execute]);
 
 	return {
 		data,
