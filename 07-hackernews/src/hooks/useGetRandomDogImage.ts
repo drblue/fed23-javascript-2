@@ -21,6 +21,14 @@ const useGetRandomDogImage = () => {
 		setIsLoading(false);
 	};
 
+	const execute = () => {
+		if (!url) {
+			return;
+		}
+
+		getData(url);
+	}
+
 	useEffect(() => {
 		if (!url) {
 			return;
@@ -31,6 +39,7 @@ const useGetRandomDogImage = () => {
 
 	return {
 		data,
+		execute,
 		isLoading,
 		setUrl,
 	}

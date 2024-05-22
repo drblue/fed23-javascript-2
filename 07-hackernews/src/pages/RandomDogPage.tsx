@@ -3,7 +3,7 @@ import Image from "react-bootstrap/Image";
 import useGetRandomDogImage from "../hooks/useGetRandomDogImage";
 
 const RandomDogPage = () => {
-	const { data, isLoading, setUrl } = useGetRandomDogImage();
+	const { data, execute, isLoading, setUrl } = useGetRandomDogImage();
 
 	return (
 		<>
@@ -21,7 +21,7 @@ const RandomDogPage = () => {
 
 				<Button
 					className="ms-1"
-					onClick={() => {}}
+					onClick={execute}
 				>MOAR doggos!!</Button>
 
 				<Button
