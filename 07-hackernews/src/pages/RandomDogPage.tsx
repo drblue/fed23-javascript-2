@@ -4,7 +4,7 @@ import Image from "react-bootstrap/Image";
 import useGetRandomDogImage from "../hooks/useGetRandomDogImage";
 
 const RandomDogPage = () => {
-	const { changeUrl, data, error, execute, isError, isLoading } = useGetRandomDogImage("boxer");
+	const { changeUrl, data, error, execute, getRandomDogImage, isError, isLoading } = useGetRandomDogImage("mountain/bernese");
 
 	return (
 		<>
@@ -12,30 +12,46 @@ const RandomDogPage = () => {
 
 			<div className="mb-3">
 				<Button
-					onClick={() => changeUrl("https://dog.ceo/api/breeds/image/random")}
-				>Random doggo</Button>
-
-				<Button
-					className="ms-1"
-					onClick={() => changeUrl("https://dog.ceo/api/breed/shiba/images/random")}
-				>Random Shiba fluffer</Button>
-
-				<Button
-					className="ms-1"
-					onClick={execute}
-				>MOAR doggos!!</Button>
-
-				<Button
-					className="ms-1"
+					className="me-1 mb-1"
 					variant="warning"
 					onClick={() => changeUrl("passwords.txt")}
 				>Make things go 💣</Button>
 
 				<Button
-					className="ms-1"
+					className="me-1 mb-1"
 					variant="warning"
 					onClick={() => changeUrl("http://löxmidnvt8drycintwrensweiuym.com")}
 				>Break stuff ⛓️‍💥</Button>
+			</div>
+
+			<div className="mb-3">
+				<Button
+					className="me-1 mb-1"
+					onClick={() => getRandomDogImage()}
+				>I ❤️ all doggos</Button>
+
+				<Button
+					className="me-1 mb-1"
+					onClick={() => getRandomDogImage("shiba")}
+				>Shiba fluffer</Button>
+
+				<Button
+					className="me-1 mb-1"
+					onClick={() => getRandomDogImage("boxer")}
+				>Boxer fluffer</Button>
+
+				<Button
+					className="me-1 mb-1"
+					onClick={() => getRandomDogImage("mountain/bernese")}
+				>Bernese Mountain fluffer</Button>
+
+			</div>
+
+			<div className="mb-3">
+				<Button
+					className="me-1 mb-1"
+					onClick={execute}
+				>MOAR doggos!! 🐶</Button>
 			</div>
 
 			{isError && <Alert variant="warning">{error}</Alert>}
