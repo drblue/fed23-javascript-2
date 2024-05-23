@@ -4,10 +4,11 @@ import { Routes, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import useTheme from "./hooks/useTheme";
 import HomePage from "./pages/HomePage";
+import ChuckNorrisPage from "./pages/ChuckNorrisPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import RandomDogPage from "./pages/RandomDogPage";
 import SearchPage from "./pages/SearchPage";
 import "./assets/scss/App.scss";
-import RandomDogPage from "./pages/RandomDogPage";
 
 function App() {
 	const { isDarkMode } = useTheme();
@@ -25,6 +26,7 @@ function App() {
 			<Container className="py-3">
 				<Routes>
 					<Route path="/" element={<HomePage />} />
+					<Route path="/chuck-norris" element={<ChuckNorrisPage />} />
 					<Route path="/random-dog" element={<RandomDogPage />} />
 					<Route path="/search" element={<SearchPage />} />
 
