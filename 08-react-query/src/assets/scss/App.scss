@@ -1,3 +1,15 @@
 $headings-margin-bottom: 0.75em;
 
 @import "bootstrap/scss/bootstrap";
+
+#loading-spinner {
+	position: absolute;
+	right: 0;
+	top: 1rem;
+}
+
+#App {
+	> .container {
+		position: relative;
+	}
+}

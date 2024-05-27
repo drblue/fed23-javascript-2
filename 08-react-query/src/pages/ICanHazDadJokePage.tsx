@@ -1,9 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
+import Alert from "react-bootstrap/Alert";
 import { getRandomDadJoke } from "../services/ICanHazDadJokeApi";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const ICanHazDadJokePage = () => {
 	const {
 		data,
+		error,
 		isError,
 		isFetching,
 		isLoading,
@@ -21,6 +24,10 @@ const ICanHazDadJokePage = () => {
 		<>
 			<h1>Random Dad Joke</h1>
 
+			{isFetching && <LoadingSpinner />}
+
+			{isError && <Alert variant="warning">{error.message}</Alert>}
+
 			<pre className="bg-light py-2 px-3">
 				isError: {String(isError)}<br />
 				isFetching: {String(isFetching)}<br />
@@ -32,9 +39,11 @@ const ICanHazDadJokePage = () => {
 				status: {status}
 			</pre>
 
-			<div>
-				<p className="display-5 text-center my-5">{data && data.joke}</p>
-			</div>
+			{data && (
+				<div>
+					<p className="display-5 text-center my-5">{data.joke}</p>
+				</div>
+			)}
 		</>
 	);
 };
