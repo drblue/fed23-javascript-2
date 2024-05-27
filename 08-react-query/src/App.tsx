@@ -1,9 +1,10 @@
 import { Container } from "react-bootstrap";
-import "./assets/scss/App.scss";
-import Navigation from "./components/Navigation";
 import { Route, Routes } from "react-router-dom";
+import Navigation from "./components/Navigation";
+import ICanHazDadJokePage from "./pages/ICanHazDadJokePage";
 import HomePage from "./pages/HomePage";
 import NotFoundPage from "./pages/NotFoundPage";
+import "./assets/scss/App.scss";
 
 function App() {
 	return (
@@ -13,6 +14,7 @@ function App() {
 			<Container className="py-3">
 				<Routes>
 					<Route path="/" element={<HomePage />} />
+					<Route path="/dad-joke" element={<ICanHazDadJokePage />} />
 					<Route path="*" element={<NotFoundPage />} />
 				</Routes>
 			</Container>
