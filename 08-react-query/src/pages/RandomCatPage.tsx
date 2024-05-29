@@ -5,7 +5,6 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Image from "react-bootstrap/Image";
 import { BREEDS, getRandomCatImage } from "../services/TheCatAPI";
-import CatSpinner from "../components/CatSpinner";
 
 const RandomCatPage = () => {
 	const [breed, setBreed] = useState("");  // ragd, sibe, beng, pers, norw, sphy
@@ -14,7 +13,6 @@ const RandomCatPage = () => {
 		data,
 		error,
 		isError,
-		isFetching,
 		refetch,
 	} = useQuery({
 		queryKey: ["random-cat", breed],
@@ -28,8 +26,6 @@ const RandomCatPage = () => {
 			<h1>I ❤️ Random Cats</h1>
 
 			<p>A cats behaviour is random so here's a random cat for you! Such random, very catlike, much hairball</p>
-
-			{isFetching && <CatSpinner />}
 
 			{isError && (
 				<Alert variant="warning">

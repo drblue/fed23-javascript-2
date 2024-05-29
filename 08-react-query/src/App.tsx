@@ -1,6 +1,7 @@
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Container } from "react-bootstrap";
 import { Route, Routes } from "react-router-dom";
+import GlobalFetchingSpinner from "./components/GlobalFetchingSpinner";
 import Navigation from "./components/Navigation";
 import ICanHazDadJokePage from "./pages/ICanHazDadJokePage";
 import HomePage from "./pages/HomePage";
@@ -14,6 +15,7 @@ function App() {
 			<Navigation />
 
 			<Container className="py-3">
+				<GlobalFetchingSpinner />
 				<Routes>
 					<Route path="/" element={<HomePage />} />
 					<Route path="/dad-joke" element={<ICanHazDadJokePage />} />
