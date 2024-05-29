@@ -1,0 +1,20 @@
+#cat-wrapper {
+	position: absolute;
+	top: 0;
+	right: 1.75rem;
+
+	.cat-spinner {
+		animation: rotation 0.75s infinite ease;
+		font-size: 4rem;
+	}
+}
+
+@keyframes rotation {
+	from {
+		transform: rotate(0deg);
+	}
+
+	to {
+		transform: rotate(359deg);
+	}
+}
