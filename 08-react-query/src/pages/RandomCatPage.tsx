@@ -1,11 +1,15 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Image from "react-bootstrap/Image";
 import { getRandomCatImage } from "../services/TheCatAPI";
 import CatSpinner from "../components/CatSpinner";
 
 const RandomCatPage = () => {
+	const [breed, setBreed] = useState("");  // ragd, sibe, beng, pers, norw, sphy
+
 	const {
 		data,
 		error,
@@ -13,8 +17,8 @@ const RandomCatPage = () => {
 		isFetching,
 		refetch,
 	} = useQuery({
-		queryKey: ["random-cat"],
-		queryFn: getRandomCatImage,
+		queryKey: ["random-cat", breed],
+		queryFn: () => getRandomCatImage(breed),
 	});
 
 	return (
@@ -38,6 +42,16 @@ const RandomCatPage = () => {
 				>
 					MJAU CATS!!
 				</Button>
+
+				<ButtonGroup className="ms-2">
+					<Button variant="secondary" onClick={() => setBreed("")}>Any</Button>
+					<Button variant="secondary" onClick={() => setBreed("ragd")}>Ragdoll</Button>
+					<Button variant="secondary" onClick={() => setBreed("sibe")}>Siberian</Button>
+					<Button variant="secondary" onClick={() => setBreed("beng")}>Bengal</Button>
+					<Button variant="secondary" onClick={() => setBreed("pers")}>Persian</Button>
+					<Button variant="secondary" onClick={() => setBreed("norw")}>Norwegian</Button>
+					<Button variant="secondary" onClick={() => setBreed("sphy")}>Sphynx</Button>
+				</ButtonGroup>
 			</div>
 
 			{data && (
