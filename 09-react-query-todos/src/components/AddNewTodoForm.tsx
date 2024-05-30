@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { NewTodo } from '../types/Todo';
+import { NewTodo } from '../services/TodosAPI.types';
 
 interface AddNewTodoFormProps {
 	onAddTodo: (todo: NewTodo) => void;

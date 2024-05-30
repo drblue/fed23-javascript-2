@@ -2,42 +2,48 @@
  * Service for communicating with the json-server backend
  */
 import axios from "axios";
-import { NewTodo, Todo } from "../types/Todo";
+import { NewTodo, Todo } from "./TodosAPI.types";
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = import.meta.env.VITE_API_BASEURL || "http://localhost:3000";
 const FAKE_DELAY = 1500;
 
+// Create a new axios instance
+const instance = axios.create({
+	baseURL: BASE_URL,
+	timeout: 10000,
+	headers: {
+		"Accept": "application/json",
+		"Content-Type": "application/json",
+	},
+});
+
 /**
- * Get all todos
+ * Execute a HTTP GET request to an endpoint
+ *
+ * @param endpoint Endpoint to HTTP GET
+ * @returns {Promise<T>}
  */
-export const getTodos = async () => {
-	const res = await axios.get<Todo[]>(BASE_URL + "/todos");
+const get = async <T>(endpoint: string) => {
+	const res = await instance.get<T>(endpoint);
+
+	// Fake a slow API
+	!!FAKE_DELAY && await new Promise(r => setTimeout(r, FAKE_DELAY));
+
 	return res.data;
 }
 
 /**
- * Get all todos using Fetch
- *
- * @deprecated
+ * Get all todos
  */
-export const getTodosUsingFetch = async () => {
-	const res = await fetch(BASE_URL + "/todos");
-	if (!res.ok) {
-		throw new Error(`${res.status} ${res.statusText}`);
-	}
-	const data: Todo[] = await res.json();
-	return data;
+export const getTodos = () => {
+	return get<Todo[]>("/todos");
 }
 
 /**
  * Get a single todo
  */
-export const getTodo = async (todo_id: number) => {
-	const res = await axios.get<Todo>(`${BASE_URL}/todos/${todo_id}`);
-
-	!!FAKE_DELAY && await new Promise(r => setTimeout(r, FAKE_DELAY));
-
-	return res.data;
+export const getTodo = (todo_id: number) => {
+	return get<Todo>("/todos/" + todo_id);
 }
 
 /**
@@ -46,28 +52,8 @@ export const getTodo = async (todo_id: number) => {
  * @param data Object with properties and values for the new todo
  */
 export const createTodo = async (todo: NewTodo) => {
-	const res = await axios.post<Todo>(BASE_URL + "/todos", todo);
+	const res = await instance.post<Todo>("/todos", todo);
 	return res.data;
-}
-
-/**
- * Create a new todo using Fetch
- *
- * @deprecated
- */
-export const createTodoUsingFetch = async (todo: NewTodo) => {
-	const res = await fetch(BASE_URL + "/todos", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(todo),
-	});
-	if (!res.ok) {
-		throw new Error(`${res.status} ${res.statusText}`);
-	}
-	const data: Todo = await res.json();
-	return data;
 }
 
 /**
@@ -77,7 +63,7 @@ export const createTodoUsingFetch = async (todo: NewTodo) => {
  * @param data Data to update todo with
  */
 export const updateTodo = async (todo_id: number, data: Partial<NewTodo>) => {
-	const res = await axios.patch<Todo>(`${BASE_URL}/todos/${todo_id}`, data);
+	const res = await instance.patch<Todo>(`/todos/${todo_id}`, data);
 	return res.data;
 }
 
@@ -87,5 +73,5 @@ export const updateTodo = async (todo_id: number, data: Partial<NewTodo>) => {
  * @param todo_id Todo to delete
  */
 export const deleteTodo = async (todo_id: number) => {
-	await axios.delete(`${BASE_URL}/todos/${todo_id}`);
+	await instance.delete(`/todos/${todo_id}`);
 }

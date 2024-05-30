@@ -3,7 +3,7 @@ import Alert from "react-bootstrap/Alert";
 import { Link, useNavigate } from "react-router-dom";
 import AddNewTodoForm from "../components/AddNewTodoForm"
 import * as TodosAPI from "../services/TodosAPI";
-import { NewTodo, Todo } from "../types/Todo";
+import { NewTodo, Todo } from "../services/TodosAPI.types";
 
 const CreateTodoPage = () => {
 	const [createdTodo, setCreatedTodo] = useState<Todo | null>(null);

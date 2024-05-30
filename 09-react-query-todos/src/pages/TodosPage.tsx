@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import AutoDismissingAlert from "../components/AutoDismissingAlert";
 import TodoCounter from "../components/TodoCounter";
 import * as TodosAPI from "../services/TodosAPI";
-import { Todo } from "../types/Todo";
+import { Todo } from "../services/TodosAPI.types";
 
 function TodosPage() {
 	const [todos, setTodos] = useState<Todo[] | null>(null);

@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useNavigate, useParams } from "react-router-dom";
 import * as TodosAPI from "../services/TodosAPI";
-import { Todo } from "../types/Todo";
+import { Todo } from "../services/TodosAPI.types";
 
 const EditTodoPage = () => {
 	const [error, setError] = useState<string | false>(false);
