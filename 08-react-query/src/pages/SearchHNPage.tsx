@@ -4,14 +4,18 @@ import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
+import { useSearchParams } from "react-router-dom";
 import Pagination from "../components/Pagination";
 import { searchByDate } from "../services/HackerNewsAPI";
 
 const SearchHNPage = () => {
 	const [page, setPage] = useState(0);
 	const [searchInput, setSearchInput] = useState("");
-	const [query, setQuery] = useState<string>("");
+	const [searchParams, setSearchParams] = useSearchParams();
 	const searchInputEl = useRef<HTMLInputElement>(null);
+
+	// get `query` from URLSearchParams
+	const query = searchParams.get("query") ?? "";    //    "/search-hn?query=tesla"
 
 	const { data: searchResult, error, isError, isFetching, isSuccess } = useQuery({
 		queryKey: ["search-hn", { query, page }],
@@ -27,15 +31,16 @@ const SearchHNPage = () => {
 			return;
 		}
 
-		// set query and reset page state
+		// set query in searchParams and reset page state
 		setPage(0);
-		setQuery(trimmedSearchInput);
+		setSearchParams({ query: trimmedSearchInput });
 	}
 
 	const handleReset = () => {
 		setPage(0);
 		setSearchInput("");
-		setQuery("");
+		setSearchParams({});
+		searchInputEl.current?.focus();
 	}
 
 	useEffect(() => {
