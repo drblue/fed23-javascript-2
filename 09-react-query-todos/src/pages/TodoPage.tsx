@@ -1,18 +1,29 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { Todo } from "../services/TodosAPI.types";
 import * as TodosAPI from "../services/TodosAPI";
 import ConfirmationModal from "../components/ConfirmationModal";
 import AutoDismissingAlert from "../components/AutoDismissingAlert";
+import { useQuery } from "@tanstack/react-query";
 
 const TodoPage = () => {
-	const [todo, setTodo] = useState<Todo | null>(null);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 	const { id } = useParams();
 	const todoId = Number(id);
 	const location = useLocation();
 	const navigate = useNavigate();
+
+	const {
+		data: todo,
+		error,
+		isError,
+		refetch,
+	} = useQuery({
+		queryKey: ["todo", { id: todoId }],
+		queryFn: () => TodosAPI.getTodo(todoId),
+	});
 
 	// Delete todo in API
 	const deleteTodo = async (todo: Todo) => {
@@ -31,29 +42,16 @@ const TodoPage = () => {
 		});
 	}
 
-	// Get todo from API
-	const getTodo = async (id: number) => {
-		// call TodosAPI
-		const data = await TodosAPI.getTodo(id);
-
-		// update todo state with data
-		setTodo(data);
-	}
-
 	// Toggle todo in API
 	const toggleTodo = async (todo: Todo) => {
 		// Call TodosAPI and update the todo
-		const updatedTodo = await TodosAPI.updateTodo(todo.id, {
+		await TodosAPI.updateTodo(todo.id, {
 			completed: !todo.completed,
 		});
 
-		// Update todo state with the updated todo
-		setTodo(updatedTodo);
+		// Get the updated todo from the API
+		refetch();
 	}
-
-	useEffect(() => {
-		getTodo(todoId);
-	}, [todoId]);
 
 	if (!todo) {
 		return <p>Loading...</p>
@@ -70,6 +68,10 @@ const TodoPage = () => {
 				>
 					{location.state.status.message}
 				</AutoDismissingAlert>
+			)}
+
+			{isError && (
+				<Alert variant="warning">{error.message}</Alert>
 			)}
 
 			<p>

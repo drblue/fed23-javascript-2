@@ -1,29 +1,22 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import Alert from "react-bootstrap/Alert";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Link, useLocation } from "react-router-dom";
 import AutoDismissingAlert from "../components/AutoDismissingAlert";
 import TodoCounter from "../components/TodoCounter";
-import * as TodosAPI from "../services/TodosAPI";
-import { Todo } from "../services/TodosAPI.types";
+import { getTodos } from "../services/TodosAPI";
 
 function TodosPage() {
-	const [todos, setTodos] = useState<Todo[] | null>(null);
 	const location = useLocation();
 
-	const getTodos = async () => {
-		setTodos(null);
-
-		// make request to api
-		const data = await TodosAPI.getTodos();
-
-		setTodos(data);
-	}
-
-	console.log("Component is rendering");
-
-	useEffect(() => {
-		getTodos();
-	}, []);
+	const {
+		data: todos,
+		error,
+		isError,
+	} = useQuery({
+		queryKey: ["todos"],
+		queryFn: getTodos,
+	});
 
 	return (
 		<>
@@ -36,6 +29,10 @@ function TodosPage() {
 				>
 					{location.state.status.message}
 				</AutoDismissingAlert>
+			)}
+
+			{isError && (
+				<Alert variant="warning">{error.message}</Alert>
 			)}
 
 			{todos && todos.length > 0 && (
