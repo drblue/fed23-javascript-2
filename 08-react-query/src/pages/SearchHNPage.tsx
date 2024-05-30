@@ -7,6 +7,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { useSearchParams } from "react-router-dom";
 import Pagination from "../components/Pagination";
 import { searchByDate } from "../services/HackerNewsAPI";
+import HN_SearchResultItem from "../components/HN_SearchResultItem";
 
 const SearchHNPage = () => {
 	const [page, setPage] = useState(0);
@@ -87,21 +88,12 @@ const SearchHNPage = () => {
 
 			{isSuccess && (
 				<div id="search-result">
-					<p>Showing {searchResult.nbHits} search results for "{searchResult.query}"...</p>
+					<p>Showing {new Intl.NumberFormat().format(searchResult.nbHits)} search results for "{searchResult.query}"...</p>
 
 					{searchResult.hits.length > 0 && (
 						<ListGroup className="mb-3">
 							{searchResult.hits.map((hit) => (
-								<ListGroup.Item
-									action
-									href={hit.url}
-									key={hit.objectID}
-								>
-									<h2 className="h3">{hit.title}</h2>
-									<p className="text-muted small mb-0">
-										{hit.points} points by {hit.author} at {hit.created_at}
-									</p>
-								</ListGroup.Item>
+								<HN_SearchResultItem item={hit} key={hit.objectID} />
 							))}
 						</ListGroup>
 					)}
