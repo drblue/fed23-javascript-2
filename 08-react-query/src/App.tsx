@@ -7,6 +7,7 @@ import ICanHazDadJokePage from "./pages/ICanHazDadJokePage";
 import HomePage from "./pages/HomePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import RandomCatPage from "./pages/RandomCatPage";
+import SearchHNPage from "./pages/SearchHNPage";
 import "./assets/scss/App.scss";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
 					<Route path="/" element={<HomePage />} />
 					<Route path="/dad-joke" element={<ICanHazDadJokePage />} />
 					<Route path="/random-cat" element={<RandomCatPage />} />
+					<Route path="/search-hn" element={<SearchHNPage />} />
 					<Route path="*" element={<NotFoundPage />} />
 				</Routes>
 			</Container>
