@@ -1,7 +1,8 @@
 #cat-wrapper {
-	position: absolute;
-	top: 0;
-	right: 1.75rem;
+	position: fixed;
+	top: 3rem;
+	right: 3rem;
+	z-index: 1;  // nobody puts cat behind listgroup
 
 	.cat-spinner {
 		animation: rotation 0.75s infinite ease;

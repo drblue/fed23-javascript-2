@@ -7,6 +7,8 @@
 import axios from "axios";
 import { HN_SearchResponse } from "./HackerNewsAPI.types";
 
+const FAKE_DELAY = 1500;
+
 // Create a new axios instance
 const instance = axios.create({
 	baseURL: "https://hn.algolia.com/api/v1",
@@ -24,6 +26,10 @@ const instance = axios.create({
  */
 const get = async <T>(endpoint: string) => {
 	const res = await instance.get<T>(endpoint);
+
+	// Fake slow API if FAKE_DELAY is truthy
+	!!FAKE_DELAY && await new Promise(r => setTimeout(r, FAKE_DELAY));
+
 	return res.data;
 }
 
