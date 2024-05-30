@@ -20,6 +20,7 @@ const SearchHNPage = () => {
 	const { data: searchResult, error, isError, isFetching, isSuccess } = useQuery({
 		queryKey: ["search-hn", { query, page }],
 		queryFn: () => searchByDate(query, page),
+		enabled: !!query,
 	});
 
 	const handleSubmit = (e: React.FormEvent) => {
