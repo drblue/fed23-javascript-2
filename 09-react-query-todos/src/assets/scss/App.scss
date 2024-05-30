@@ -1,0 +1,36 @@
+@import "bootstrap/scss/bootstrap";
+
+h1, h2, h3, h4, h5, h6 {
+	margin-bottom: 0.75em;
+}
+
+.todolist {
+	margin-bottom: 1.5rem;
+
+	.list-group-item {
+		display: flex;
+		justify-content: space-between;
+
+		&.done {
+			.todo-title {
+				color: $success;
+				font-style: italic;
+				text-decoration: line-through;
+			}
+		}
+	}
+}
+
+.completed {
+	color: $success;
+}
+
+.not-completed {
+	color: $danger;
+}
+
+.modal {
+	.modal-title {
+		margin-bottom: 0;
+	}
+}

@@ -1,0 +1,19 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "title": "Make coffee",
+      "completed": true
+    },
+    {
+      "id": 2,
+      "title": "Drink coffee",
+      "completed": false
+    },
+    {
+      "title": "Drink ALL the coffee 🤪",
+      "completed": false,
+      "id": 4
+    }
+  ]
+}
