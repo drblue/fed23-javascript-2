@@ -92,7 +92,7 @@ const EditTodoPage = () => {
 					/>
 				</Form.Group>
 
-				<Button variant="primary" type="submit">
+				<Button disabled={updateTodoMutation.isPending} variant="primary" type="submit">
 					Save
 				</Button>
 			</Form>
