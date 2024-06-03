@@ -1,12 +1,12 @@
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { Todo } from "../services/TodosAPI.types";
-import * as TodosAPI from "../services/TodosAPI";
+import { deleteTodo, getTodo, updateTodo } from "../services/TodosAPI";
 import ConfirmationModal from "../components/ConfirmationModal";
 import AutoDismissingAlert from "../components/AutoDismissingAlert";
-import { useQuery } from "@tanstack/react-query";
 
 const TodoPage = () => {
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -22,11 +22,16 @@ const TodoPage = () => {
 		refetch,
 	} = useQuery({
 		queryKey: ["todo", { id: todoId }],
-		queryFn: () => TodosAPI.getTodo(todoId),
+		queryFn: () => getTodo(todoId),
+	});
+
+	const updateTodoCompletedMutation = useMutation({
+		mutationFn: (completed: boolean) => updateTodo(todoId, { completed })
 	});
 
 	// Delete todo in API
 	const deleteTodo = async (todo: Todo) => {
+		/*
 		// Call TodosAPI and delete the todo
 		await TodosAPI.deleteTodo(todo.id);
 
@@ -40,17 +45,7 @@ const TodoPage = () => {
 				}
 			}
 		});
-	}
-
-	// Toggle todo in API
-	const toggleTodo = async (todo: Todo) => {
-		// Call TodosAPI and update the todo
-		await TodosAPI.updateTodo(todo.id, {
-			completed: !todo.completed,
-		});
-
-		// Get the updated todo from the API
-		refetch();
+		*/
 	}
 
 	if (!todo) {
@@ -81,7 +76,11 @@ const TodoPage = () => {
 			</p>
 
 			<div className="buttons mb-3">
-				<Button variant="success" onClick={() => toggleTodo(todo)}>Toggle</Button>
+				<Button
+					disabled={updateTodoCompletedMutation.isPending}
+					onClick={() => updateTodoCompletedMutation.mutate(!todo.completed)}
+					variant="success"
+				>Toggle</Button>
 
 				<Link to={`/todos/${todoId}/edit`} className="btn btn-warning" role="button">Edit</Link>
 
