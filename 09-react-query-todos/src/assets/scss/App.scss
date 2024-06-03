@@ -4,6 +4,13 @@ h1, h2, h3, h4, h5, h6 {
 	margin-bottom: 0.75em;
 }
 
+#global-loading-spinner-wrapper {
+	position: fixed;
+	top: 4.5rem;
+	right: 4.5rem;
+	z-index: 1;  // nobody puts pacman behind listgroup
+}
+
 .todolist {
 	margin-bottom: 1.5rem;
 
