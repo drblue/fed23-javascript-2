@@ -1,52 +1,41 @@
-import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
 import Alert from "react-bootstrap/Alert";
 import { Link, useNavigate } from "react-router-dom";
 import AddNewTodoForm from "../components/AddNewTodoForm"
-import * as TodosAPI from "../services/TodosAPI";
-import { NewTodo, Todo } from "../services/TodosAPI.types";
+import { createTodo } from "../services/TodosAPI";
+import { NewTodo } from "../services/TodosAPI.types";
 
 const CreateTodoPage = () => {
-	const [createdTodo, setCreatedTodo] = useState<Todo | null>(null);
-	const [error, setError] = useState<string | false>(false);
+	const createTodoMutation = useMutation({
+		mutationFn: createTodo,
+	});
+
 	const navigate = useNavigate();
 
 	const addTodo = async (todo: NewTodo) => {
-		setCreatedTodo(null);
-		setError(false);
+		createTodoMutation.mutate(todo);
 
-		try {
-			const data = await TodosAPI.createTodo(todo);
-
-			setCreatedTodo(data);
-
-			setTimeout(() => {
-				navigate("/todos");
-			}, 2000);
-		} catch (err) {
-			if (err instanceof Error) {
-				setError(err.message);
-			} else {
-				setError("ERROR: We've reached an unreachable state. Anything is possible. The limits were in our heads all along. Follow your dreams.");
-			}
-		}
+		// setTimeout(() => {
+		// 	navigate("/todos");
+		// }, 2000);
 	}
 
 	return (
 		<>
 			<h1>Create a new Todo</h1>
 
-			{error && <Alert variant="warning">{error}</Alert>}
+			{createTodoMutation.isError && <Alert variant="warning">{createTodoMutation.error.message}</Alert>}
 
 			<AddNewTodoForm
 				onAddTodo={addTodo}
 			/>
 
-			{createdTodo && (
+			{createTodoMutation.isSuccess && (
 				<Alert variant="success">
 					<h2 className="h5">Created todo successfully</h2>
 					<p>Redirecting back to all todos in 2 seconds...</p>
 
-					<Link to={`/todos/${createdTodo.id}`} className="btn btn-success" role="button">
+					<Link to={`/todos/${createTodoMutation.data.id}`} className="btn btn-success" role="button">
 						Go to todo &raquo;
 					</Link>
 				</Alert>

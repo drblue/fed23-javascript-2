@@ -14,6 +14,16 @@
       "title": "Drink ALL the coffee 🤪",
       "completed": false,
       "id": 4
+    },
+    {
+      "title": "Learn about TMNT 🐢☢️",
+      "completed": false,
+      "id": 5
+    },
+    {
+      "title": "Learn about Query Invalidation ✋🏻",
+      "completed": false,
+      "id": 6
     }
   ]
 }
