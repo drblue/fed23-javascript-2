@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
@@ -13,6 +13,7 @@ const TodoPage = () => {
 	const todoId = Number(id);
 	const location = useLocation();
 	const navigate = useNavigate();
+	const queryClient = useQueryClient();
 
 	const {
 		data: todo,
@@ -42,7 +43,14 @@ const TodoPage = () => {
 	});
 
 	const updateTodoCompletedMutation = useMutation({
-		mutationFn: (completed: boolean) => updateTodo(todoId, { completed })
+		mutationFn: (completed: boolean) => updateTodo(todoId, { completed }),
+		onSuccess: () => {
+			// invalidate the current query
+			queryClient.invalidateQueries({ queryKey: ["todo", { id: todoId }] });
+
+			// invalidate any ["todos"] queries
+			queryClient.invalidateQueries({ queryKey: ["todos"] });
+		}
 	});
 
 	if (isLoading) {
