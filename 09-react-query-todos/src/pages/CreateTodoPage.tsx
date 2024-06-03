@@ -1,13 +1,18 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Alert from "react-bootstrap/Alert";
 import { Link, useNavigate } from "react-router-dom";
 import AddNewTodoForm from "../components/AddNewTodoForm"
 import { createTodo } from "../services/TodosAPI";
 
 const CreateTodoPage = () => {
+	const queryClient = useQueryClient();
+
 	const createTodoMutation = useMutation({
 		mutationFn: createTodo,
 		onSuccess: () => {
+			// invalidate any ["todos"] queries
+			queryClient.invalidateQueries({ queryKey: ["todos"] });
+
 			setTimeout(() => {
 				navigate("/todos");
 			}, 2000);
