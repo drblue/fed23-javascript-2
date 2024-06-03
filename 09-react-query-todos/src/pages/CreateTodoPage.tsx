@@ -3,22 +3,18 @@ import Alert from "react-bootstrap/Alert";
 import { Link, useNavigate } from "react-router-dom";
 import AddNewTodoForm from "../components/AddNewTodoForm"
 import { createTodo } from "../services/TodosAPI";
-import { NewTodo } from "../services/TodosAPI.types";
 
 const CreateTodoPage = () => {
 	const createTodoMutation = useMutation({
 		mutationFn: createTodo,
+		onSuccess: () => {
+			setTimeout(() => {
+				navigate("/todos");
+			}, 2000);
+		}
 	});
 
 	const navigate = useNavigate();
-
-	const addTodo = async (todo: NewTodo) => {
-		createTodoMutation.mutate(todo);
-
-		// setTimeout(() => {
-		// 	navigate("/todos");
-		// }, 2000);
-	}
 
 	return (
 		<>
@@ -27,7 +23,7 @@ const CreateTodoPage = () => {
 			{createTodoMutation.isError && <Alert variant="warning">{createTodoMutation.error.message}</Alert>}
 
 			<AddNewTodoForm
-				onAddTodo={addTodo}
+				onAddTodo={createTodoMutation.mutate}
 			/>
 
 			{createTodoMutation.isSuccess && (
