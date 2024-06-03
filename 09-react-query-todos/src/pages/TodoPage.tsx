@@ -8,6 +8,7 @@ import ConfirmationModal from "../components/ConfirmationModal";
 import AutoDismissingAlert from "../components/AutoDismissingAlert";
 
 const TodoPage = () => {
+	const [queryEnabled, setQueryEnabled] = useState(true);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 	const { id } = useParams();
 	const todoId = Number(id);
@@ -24,11 +25,21 @@ const TodoPage = () => {
 	} = useQuery({
 		queryKey: ["todo", { id: todoId }],
 		queryFn: () => getTodo(todoId),
+		enabled: queryEnabled,
 	});
 
 	const deleteTodoMutation = useMutation({
 		mutationFn: () => deleteTodo(todoId),
 		onSuccess: () => {
+			// disable query for this specific single todo
+			setQueryEnabled(false);
+
+			// remove the current query from the cache
+			queryClient.removeQueries({ queryKey: ["todo", { id: todoId }] });
+
+			// invalidate any ["todos"] queries
+			queryClient.invalidateQueries({ queryKey: ["todos"] });
+
 			// Redirect to "/todos"
 			navigate("/todos", {
 				replace: true,
