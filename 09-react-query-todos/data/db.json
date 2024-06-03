@@ -6,11 +6,6 @@
       "completed": true
     },
     {
-      "id": 2,
-      "title": "🐴 Jak e elak hest 😈",
-      "completed": false
-    },
-    {
       "title": "Drink ALL the coffee 🤪",
       "completed": false,
       "id": 4
@@ -24,11 +19,6 @@
       "title": "Learn about Query Invalidation ✋🏻",
       "completed": false,
       "id": 6
-    },
-    {
-      "title": "This is my new todo",
-      "completed": false,
-      "id": 7
     }
   ]
 }

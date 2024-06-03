@@ -3,7 +3,6 @@ import { useState } from "react";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { Todo } from "../services/TodosAPI.types";
 import { deleteTodo, getTodo, updateTodo } from "../services/TodosAPI";
 import ConfirmationModal from "../components/ConfirmationModal";
 import AutoDismissingAlert from "../components/AutoDismissingAlert";
@@ -19,34 +18,30 @@ const TodoPage = () => {
 		data: todo,
 		error,
 		isError,
-		refetch,
 	} = useQuery({
 		queryKey: ["todo", { id: todoId }],
 		queryFn: () => getTodo(todoId),
 	});
 
+	const deleteTodoMutation = useMutation({
+		mutationFn: () => deleteTodo(todoId),
+		onSuccess: () => {
+			// Redirect to "/todos"
+			navigate("/todos", {
+				replace: true,
+				state: {
+					status: {
+						message: `Todo was deleted`,
+						type: "success",
+					}
+				}
+			});
+		},
+	});
+
 	const updateTodoCompletedMutation = useMutation({
 		mutationFn: (completed: boolean) => updateTodo(todoId, { completed })
 	});
-
-	// Delete todo in API
-	const deleteTodo = async (todo: Todo) => {
-		/*
-		// Call TodosAPI and delete the todo
-		await TodosAPI.deleteTodo(todo.id);
-
-		// Redirect to "/todos"
-		navigate("/todos", {
-			replace: true,
-			state: {
-				status: {
-					message: `Todo "${todo.title}" was deleted`,
-					type: "success",
-				}
-			}
-		});
-		*/
-	}
 
 	if (!todo) {
 		return <p>Loading...</p>
@@ -77,17 +72,21 @@ const TodoPage = () => {
 
 			<div className="buttons mb-3">
 				<Button
-					disabled={updateTodoCompletedMutation.isPending}
+					disabled={updateTodoCompletedMutation.isPending || deleteTodoMutation.isPending}
 					onClick={() => updateTodoCompletedMutation.mutate(!todo.completed)}
 					variant="success"
 				>Toggle</Button>
 
 				<Link to={`/todos/${todoId}/edit`} className="btn btn-warning" role="button">Edit</Link>
 
-				<Button variant="danger" onClick={() => setShowDeleteModal(true)}>Delete</Button>
+				<Button
+					disabled={deleteTodoMutation.isPending}
+					onClick={() => setShowDeleteModal(true)}
+					variant="danger"
+				>Delete</Button>
 				<ConfirmationModal
 					onCancel={() => setShowDeleteModal(false)}
-					onConfirm={() => deleteTodo(todo)}
+					onConfirm={deleteTodoMutation.mutate}
 					show={showDeleteModal}
 					title="Confirm delete"
 					variant="danger"
