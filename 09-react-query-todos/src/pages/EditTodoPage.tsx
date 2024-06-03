@@ -1,43 +1,27 @@
+import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useNavigate, useParams } from "react-router-dom";
-import * as TodosAPI from "../services/TodosAPI";
-import { Todo } from "../services/TodosAPI.types";
+import { getTodo, updateTodo } from "../services/TodosAPI";
 
 const EditTodoPage = () => {
-	const [error, setError] = useState<string | false>(false);
-	const [isLoading, setIsLoading] = useState(true);
-	const [todo, setTodo] = useState<Todo | null>(null);
 	const [inputNewTodoTitle, setInputNewTodoTitle] = useState("");
 	const { id } = useParams();
 	const todoId = Number(id);
 	const navigate = useNavigate();
 
-	// Get todo from API
-	const getTodo = async (id: number) => {
-		setError(false);
-		setIsLoading(true);
-		setTodo(null);
-
-		try {
-			// call TodosAPI
-			const data = await TodosAPI.getTodo(id);
-
-			// update todo state with data
-			setTodo(data);
-			setInputNewTodoTitle(data.title);
-		} catch (err) {
-			if (err instanceof Error) {
-				setError(err.message);
-			} else {
-				setError("ERROR: We've reached an unreachable state. Anything is possible. The limits were in our heads all along. Follow your dreams.");
-			}
-		}
-
-		setIsLoading(false);
-	}
+	const {
+		data: todo,
+		error,
+		isError,
+		isLoading,
+		refetch,
+	} = useQuery({
+		queryKey: ["todo", { id: todoId }],
+		queryFn: () => getTodo(todoId),
+	});
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -47,32 +31,25 @@ const EditTodoPage = () => {
 		}
 
 		// Call TodosAPI and update the todo
-		await TodosAPI.updateTodo(todo.id, {
+		await updateTodo(todo.id, {
 			title: inputNewTodoTitle,
 		});
 
-		// Redirect user to /todos/:id
-		navigate(`/todos/${todo.id}`, {
-			state: {
-				status: {
-					message: `Todo "${todo.title}" was deleted`,
-					type: "success",
-				}
-			}
-		});
+		// Redirect user back to /todos/:id
+		navigate(`/todos/${todo.id}`);
 	}
 
 	useEffect(() => {
-		getTodo(todoId);
+		// getTodo(todoId);
 	}, [todoId]);
 
-	if (error) {
+	if (isError) {
 		return (
 			<Alert variant="warning">
 				<h1>Something went wrong!</h1>
-				<p>{error}</p>
+				<p>{error.message}</p>
 
-				<Button variant="primary" onClick={() => getTodo(todoId)}>TRY HARDER!!!</Button>
+				<Button variant="primary" onClick={() => refetch()}>TRY HARDER!!!</Button>
 			</Alert>
 		)
 	}
