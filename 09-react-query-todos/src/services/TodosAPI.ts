@@ -5,7 +5,7 @@ import axios from "axios";
 import { NewTodo, Todo } from "./TodosAPI.types";
 
 const BASE_URL = import.meta.env.VITE_API_BASEURL || "http://localhost:3000";
-const FAKE_DELAY = 1500;
+const FAKE_DELAY = 0;
 
 // Create a new axios instance
 const instance = axios.create({
