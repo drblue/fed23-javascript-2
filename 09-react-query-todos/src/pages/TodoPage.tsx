@@ -18,6 +18,8 @@ const TodoPage = () => {
 		data: todo,
 		error,
 		isError,
+		isLoading,
+		isSuccess,
 	} = useQuery({
 		queryKey: ["todo", { id: todoId }],
 		queryFn: () => getTodo(todoId),
@@ -43,11 +45,17 @@ const TodoPage = () => {
 		mutationFn: (completed: boolean) => updateTodo(todoId, { completed })
 	});
 
-	if (!todo) {
+	if (isLoading) {
 		return <p>Loading...</p>
 	}
 
-	return (
+	if (isError) {
+		return (
+			<Alert variant="warning">{error.message}</Alert>
+		)
+	}
+
+	return isSuccess && (
 		<>
 			<h1 title={`Todo #${todo.id}`}>{todo.title}</h1>
 
@@ -58,10 +66,6 @@ const TodoPage = () => {
 				>
 					{location.state.status.message}
 				</AutoDismissingAlert>
-			)}
-
-			{isError && (
-				<Alert variant="warning">{error.message}</Alert>
 			)}
 
 			<p>
