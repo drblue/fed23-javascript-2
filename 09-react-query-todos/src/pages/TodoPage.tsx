@@ -1,15 +1,16 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { deleteTodo, getTodo, getTodos, updateTodo } from "../services/TodosAPI";
+import { deleteTodo, getTodos, updateTodo } from "../services/TodosAPI";
 import ConfirmationModal from "../components/ConfirmationModal";
 import AutoDismissingAlert from "../components/AutoDismissingAlert";
 import { Todo } from "../services/TodosAPI.types";
+import useTodo from "../hooks/useTodo";
 
 const TodoPage = () => {
-	const [queryEnabled, setQueryEnabled] = useState(true);
+	// const [queryEnabled, setQueryEnabled] = useState(true);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 	const { id } = useParams();
 	const todoId = Number(id);
@@ -23,17 +24,14 @@ const TodoPage = () => {
 		isError,
 		isLoading,
 		isSuccess,
-	} = useQuery({
-		queryKey: ["todo", { id: todoId }],
-		queryFn: () => getTodo(todoId),
-		enabled: queryEnabled,
-	});
+	} = useTodo(todoId);
 
 	const deleteTodoMutation = useMutation({
 		mutationFn: () => deleteTodo(todoId),
 		onSuccess: async () => {
 			// disable query for this specific single todo
-			setQueryEnabled(false);
+			// TODO: Enable me again
+			// setQueryEnabled(false);
 
 			// make sure we have ["todos"] in the cache
 			await queryClient.prefetchQuery({
