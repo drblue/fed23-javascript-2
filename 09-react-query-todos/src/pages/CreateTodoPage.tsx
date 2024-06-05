@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Alert from "react-bootstrap/Alert";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import AddNewTodoForm from "../components/AddNewTodoForm"
 import { createTodo } from "../services/TodosAPI";
 import { Todo } from "../services/TodosAPI.types";
@@ -22,14 +22,8 @@ const CreateTodoPage = () => {
 
 			// also insert the new todo into the query cache
 			queryClient.setQueryData(["todo", { id: newTodo.id }], newTodo);
-
-			setTimeout(() => {
-				navigate("/todos");
-			}, 2000);
 		}
 	});
-
-	const navigate = useNavigate();
 
 	return (
 		<>
@@ -44,7 +38,6 @@ const CreateTodoPage = () => {
 			{createTodoMutation.isSuccess && (
 				<Alert variant="success">
 					<h2 className="h5">Created todo successfully</h2>
-					<p>Redirecting back to all todos in 2 seconds...</p>
 
 					<Link to={`/todos/${createTodoMutation.data.id}`} className="btn btn-success" role="button">
 						Go to todo &raquo;
