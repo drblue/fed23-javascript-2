@@ -3,15 +3,22 @@ import Alert from "react-bootstrap/Alert";
 import { Link, useNavigate } from "react-router-dom";
 import AddNewTodoForm from "../components/AddNewTodoForm"
 import { createTodo } from "../services/TodosAPI";
+import { Todo } from "../services/TodosAPI.types";
 
 const CreateTodoPage = () => {
 	const queryClient = useQueryClient();
 
 	const createTodoMutation = useMutation({
 		mutationFn: createTodo,
-		onSuccess: () => {
-			// invalidate any ["todos"] queries
-			queryClient.invalidateQueries({ queryKey: ["todos"] });
+		onSuccess: (newTodo) => {
+			// instead of invalidating the ["todos"] query, we can construct new data
+			// based on the previous data + newly created todo from the create Todo request
+			queryClient.setQueryData<Todo[]>(["todos"], (oldTodos) => {
+				return [
+					...oldTodos ?? [],
+					newTodo,
+				];
+			});
 
 			setTimeout(() => {
 				navigate("/todos");
