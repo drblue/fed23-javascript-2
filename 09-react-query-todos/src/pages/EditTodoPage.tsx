@@ -20,10 +20,10 @@ const EditTodoPage = () => {
 		refetch,
 	} = useTodo(todoId);
 
-	const updateTodoMutation = useUpdateTodo(todoId);
-
-	// Redirect user back to /todos/:id
-	// navigate(`/todos/${todoId}`);
+	const updateTodoMutation = useUpdateTodo(todoId, (updatedTodo) => {
+		// Redirect user back to /todos/:id
+		navigate(`/todos/${updatedTodo.id}`);
+	});
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();

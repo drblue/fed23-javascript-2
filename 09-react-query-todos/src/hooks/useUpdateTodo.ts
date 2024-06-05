@@ -2,7 +2,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Todo } from "../services/TodosAPI.types";
 import { getTodos, updateTodo } from "../services/TodosAPI";
 
-const useUpdateTodo = (todoId: number) => {
+const useUpdateTodo = (
+	todoId: number,
+	onSuccess: (updatedTodo: Todo) => void = () => undefined,
+) => {
 	const queryClient = useQueryClient();
 
 	return useMutation({
@@ -18,6 +21,10 @@ const useUpdateTodo = (todoId: number) => {
 				queryFn: getTodos,
 				staleTime: 0,   // always prefetch, even if the existing data is considered fresh 🌱
 			});
+
+			// Call onSuccess-method that is optionally passed to our hook
+			// (defaults to empty function)
+			onSuccess(updatedTodo);
 		}
 	});
 };
