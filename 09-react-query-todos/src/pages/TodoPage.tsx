@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { deleteTodo, getTodo, getTodos, updateTodo } from "../services/TodosAPI";
 import ConfirmationModal from "../components/ConfirmationModal";
 import AutoDismissingAlert from "../components/AutoDismissingAlert";
+import { Todo } from "../services/TodosAPI.types";
 
 const TodoPage = () => {
 	const [queryEnabled, setQueryEnabled] = useState(true);
@@ -30,15 +31,24 @@ const TodoPage = () => {
 
 	const deleteTodoMutation = useMutation({
 		mutationFn: () => deleteTodo(todoId),
-		onSuccess: () => {
+		onSuccess: async () => {
 			// disable query for this specific single todo
 			setQueryEnabled(false);
+
+			// make sure we have ["todos"] in the cache
+			await queryClient.prefetchQuery({
+				queryKey: ["todos"],
+				queryFn: getTodos,
+			});
 
 			// remove the current query from the cache
 			queryClient.removeQueries({ queryKey: ["todo", { id: todoId }] });
 
-			// invalidate any ["todos"] queries
-			queryClient.invalidateQueries({ queryKey: ["todos"] });
+			// construct new data where the deleted todo is removed
+			// and set it as the ["todos"] data
+			queryClient.setQueryData<Todo[]>(["todos"], (oldTodos) => {
+				return oldTodos?.filter(todo => todo.id !== todoId) ?? [];
+			});
 
 			// Redirect to "/todos"
 			navigate("/todos", {
