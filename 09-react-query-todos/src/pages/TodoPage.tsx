@@ -3,7 +3,7 @@ import { useState } from "react";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { deleteTodo, getTodo, updateTodo } from "../services/TodosAPI";
+import { deleteTodo, getTodo, getTodos, updateTodo } from "../services/TodosAPI";
 import ConfirmationModal from "../components/ConfirmationModal";
 import AutoDismissingAlert from "../components/AutoDismissingAlert";
 
@@ -59,8 +59,13 @@ const TodoPage = () => {
 			// set the response from the mutation as the query cache for this todo
 			queryClient.setQueryData(["todo", { id: todoId }], updatedTodo);
 
-			// invalidate any ["todos"] queries
-			queryClient.invalidateQueries({ queryKey: ["todos"] });
+			// prefetch ["todos"] query as it is very likely that the user will
+			// return to the list of all todos as their next step
+			queryClient.prefetchQuery({
+				queryKey: ["todos"],
+				queryFn: getTodos,
+				staleTime: 0,   // always prefetch, even if the existing data is considered fresh 🌱
+			});
 		}
 	});
 

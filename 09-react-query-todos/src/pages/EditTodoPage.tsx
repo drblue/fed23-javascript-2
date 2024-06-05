@@ -4,7 +4,7 @@ import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { getTodo, updateTodo } from "../services/TodosAPI";
+import { getTodo, getTodos, updateTodo } from "../services/TodosAPI";
 import { Todo } from "../services/TodosAPI.types";
 
 const EditTodoPage = () => {
@@ -31,8 +31,13 @@ const EditTodoPage = () => {
 			// set the response from the mutation as the query cache for this todo
 			queryClient.setQueryData(["todo", { id: todoId }], updatedTodo);
 
-			// invalidate any ["todos"] queries
-			queryClient.invalidateQueries({ queryKey: ["todos"] });
+			// prefetch ["todos"] query as it is very likely that the user will
+			// return to the list of all todos as their next step
+			queryClient.prefetchQuery({
+				queryKey: ["todos"],
+				queryFn: getTodos,
+				staleTime: 0,   // always prefetch, even if the existing data is considered fresh 🌱
+			});
 
 			// Redirect user back to /todos/:id
 			navigate(`/todos/${todoId}`);
