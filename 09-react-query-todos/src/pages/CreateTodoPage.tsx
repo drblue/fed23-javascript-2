@@ -20,6 +20,9 @@ const CreateTodoPage = () => {
 				];
 			});
 
+			// also insert the new todo into the query cache
+			queryClient.setQueryData(["todo", { id: newTodo.id }], newTodo);
+
 			setTimeout(() => {
 				navigate("/todos");
 			}, 2000);
