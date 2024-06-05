@@ -3,11 +3,12 @@ import { useState } from "react";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { deleteTodo, getTodos, updateTodo } from "../services/TodosAPI";
+import { deleteTodo, getTodos } from "../services/TodosAPI";
 import ConfirmationModal from "../components/ConfirmationModal";
 import AutoDismissingAlert from "../components/AutoDismissingAlert";
 import { Todo } from "../services/TodosAPI.types";
 import useTodo from "../hooks/useTodo";
+import useUpdateTodo from "../hooks/useUpdateTodo";
 
 const TodoPage = () => {
 	const [queryEnabled, setQueryEnabled] = useState(true);
@@ -60,21 +61,7 @@ const TodoPage = () => {
 		},
 	});
 
-	const updateTodoCompletedMutation = useMutation({
-		mutationFn: (completed: boolean) => updateTodo(todoId, { completed }),
-		onSuccess: async (updatedTodo) => {
-			// set the response from the mutation as the query cache for this todo
-			queryClient.setQueryData(["todo", { id: todoId }], updatedTodo);
-
-			// prefetch ["todos"] query as it is very likely that the user will
-			// return to the list of all todos as their next step
-			await queryClient.prefetchQuery({
-				queryKey: ["todos"],
-				queryFn: getTodos,
-				staleTime: 0,   // always prefetch, even if the existing data is considered fresh 🌱
-			});
-		}
-	});
+	const updateTodoCompletedMutation = useUpdateTodo(todoId);
 
 	if (isLoading) {
 		return <p>Loading...</p>
@@ -108,7 +95,7 @@ const TodoPage = () => {
 			<div className="buttons mb-3">
 				<Button
 					disabled={updateTodoCompletedMutation.isPending || deleteTodoMutation.isPending}
-					onClick={() => updateTodoCompletedMutation.mutate(!todo.completed)}
+					onClick={() => updateTodoCompletedMutation.mutate({ completed: !todo.completed })}
 					variant="success"
 				>Toggle</Button>
 
