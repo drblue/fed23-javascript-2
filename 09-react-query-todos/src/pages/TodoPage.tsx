@@ -10,7 +10,7 @@ import { Todo } from "../services/TodosAPI.types";
 import useTodo from "../hooks/useTodo";
 
 const TodoPage = () => {
-	// const [queryEnabled, setQueryEnabled] = useState(true);
+	const [queryEnabled, setQueryEnabled] = useState(true);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 	const { id } = useParams();
 	const todoId = Number(id);
@@ -24,14 +24,13 @@ const TodoPage = () => {
 		isError,
 		isLoading,
 		isSuccess,
-	} = useTodo(todoId);
+	} = useTodo(todoId, queryEnabled);
 
 	const deleteTodoMutation = useMutation({
 		mutationFn: () => deleteTodo(todoId),
 		onSuccess: async () => {
 			// disable query for this specific single todo
-			// TODO: Enable me again
-			// setQueryEnabled(false);
+			setQueryEnabled(false);
 
 			// make sure we have ["todos"] in the cache
 			await queryClient.prefetchQuery({
