@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 import { createTodo, getTodos } from "../services/TodosAPI";
 import { Todo } from "../services/TodosAPI.types";
 
@@ -29,6 +30,9 @@ const useCreateTodo = () => {
 
 			// also insert the new todo into the query cache
 			queryClient.setQueryData(["todo", { id: newTodo.id }], newTodo);
+
+			// 🥂
+			toast.success("Todo created 🤩");
 		}
 	})
 };

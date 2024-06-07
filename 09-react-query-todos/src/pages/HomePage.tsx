@@ -17,7 +17,9 @@ const HomePage = () => {
 				>Celebrate 🎉</Button>
 
 				<Button
-					onClick={() => toast.success("Wow, such success, very influencer, much money! 💰")}
+					onClick={() => toast.success("Wow, such success, very influencer, much money! 💰", {
+						icon: () => "🚀"
+					})}
 					variant="success"
 				>Click me 🤑</Button>
 
