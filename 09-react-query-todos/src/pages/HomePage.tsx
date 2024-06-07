@@ -1,5 +1,6 @@
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
+import { CardChecklist } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -24,7 +25,9 @@ const HomePage = () => {
 				>Click me 🤑</Button>
 
 				<Button
-					onClick={() => toast.warn("Wow, such WARNING, very ALERT!")}
+					onClick={() => toast.warn("Wow, such WARNING, very ALERT!", {
+						icon: <CardChecklist />
+					})}
 					variant="warning"
 				>Call da police 👮🏻</Button>
 

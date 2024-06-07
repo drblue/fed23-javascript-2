@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { CardChecklist } from "react-bootstrap-icons";
 import { toast } from "react-toastify";
 import { createTodo, getTodos } from "../services/TodosAPI";
 import { Todo } from "../services/TodosAPI.types";
@@ -32,7 +33,7 @@ const useCreateTodo = () => {
 			queryClient.setQueryData(["todo", { id: newTodo.id }], newTodo);
 
 			// 🥂
-			toast.success("Todo created 🤩");
+			toast.success("Todo created 🤩", { icon: CardChecklist });
 		}
 	})
 };
