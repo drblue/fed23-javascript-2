@@ -1,6 +1,6 @@
 {
   "editorconfig": true,
   "jsxSingleQuote": false,
-  "printWidth": 120,
+  "printWidth": 100,
   "semi": true
 }
