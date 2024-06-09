@@ -1,0 +1,41 @@
+{
+  "name": "10-books-library",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "server": "json-server --watch data/db.json --port 3000 --delay 0"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.40.1",
+    "@tanstack/react-query-devtools": "^5.40.1",
+    "axios": "^1.7.2",
+    "bootstrap": "^5.3.3",
+    "json-server": "^0.17.4",
+    "react": "^18.3.1",
+    "react-bootstrap": "^2.10.2",
+    "react-bootstrap-icons": "^1.11.4",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.23.1",
+    "react-spinners": "^0.13.8",
+    "react-toastify": "^10.0.5",
+    "sass": "^1.77.4"
+  },
+  "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^5.35.6",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^7.12.0",
+    "@typescript-eslint/parser": "^7.12.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.7",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.13"
+  }
+}

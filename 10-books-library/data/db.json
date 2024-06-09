@@ -1,0 +1,135 @@
+{
+  "books": [
+    {
+      "title": "The Hitchhiker's Guide to the Galaxy",
+      "authorId": 1,
+      "published": "1979",
+      "pages": 224,
+      "id": 1
+    },
+    {
+      "id": 2,
+      "title": "2001: A Space Odyssey",
+      "pages": 221,
+      "published": 1968,
+      "authorId": 2
+    },
+    {
+      "id": 3,
+      "title": "2010: Odyssey Two",
+      "pages": 291,
+      "published": 1982,
+      "authorId": 2
+    },
+    {
+      "id": 4,
+      "title": "Foundation",
+      "pages": 255,
+      "published": 1951,
+      "authorId": 3
+    },
+    {
+      "id": 5,
+      "title": "Neuromancer",
+      "pages": 271,
+      "published": 1984,
+      "authorId": 4
+    },
+    {
+      "id": 6,
+      "title": "The Stars Are Legion",
+      "pages": 400,
+      "published": 2017,
+      "authorId": 5
+    },
+    {
+      "id": 7,
+      "title": "Dawn (The Xenogenesis Trilogy Book 1)",
+      "pages": 321,
+      "published": 2012,
+      "authorId": 6
+    },
+    {
+      "id": 8,
+      "title": "Bananana",
+      "pages": 3,
+      "published": 2019,
+      "authorId": 7
+    },
+    {
+      "id": 9,
+      "title": "An Iron Heart",
+      "pages": 9,
+      "published": 1977,
+      "authorId": 8
+    },
+    {
+      "title": "My pants - A love story",
+      "authorId": 9,
+      "published": "1789",
+      "pages": "420",
+      "id": 10
+    },
+    {
+      "title": "My trousers - A second love story",
+      "authorId": 9,
+      "published": "1790",
+      "pages": "333",
+      "id": 11
+    },
+    {
+      "title": "My shorts - A third love story",
+      "authorId": 9,
+      "published": "1792",
+      "pages": "650",
+      "id": 12
+    }
+  ],
+  "authors": [
+    {
+      "id": 1,
+      "name": "Douglas Adams",
+      "date_of_birth": "1952-03-11"
+    },
+    {
+      "id": 2,
+      "name": "Sir Arthur C. Clarke",
+      "date_of_birth": "1917-12-16"
+    },
+    {
+      "id": 3,
+      "name": "Isaac Asimow",
+      "date_of_birth": "1920-01-02"
+    },
+    {
+      "id": 4,
+      "name": "William Gibson",
+      "date_of_birth": "1948-03-17"
+    },
+    {
+      "id": 5,
+      "name": "Kameron Hurley",
+      "date_of_birth": "1980-01-12"
+    },
+    {
+      "id": 6,
+      "name": "Octavia E. Butler",
+      "date_of_birth": "1947-06-22"
+    },
+    {
+      "id": 7,
+      "name": "Sean Banan",
+      "date_of_birth": "1948-03-17"
+    },
+    {
+      "id": 8,
+      "name": "Tony Stark",
+      "date_of_birth": "1970-05-29"
+    },
+    {
+      "id": 9,
+      "name": "Mr Fancy Pants",
+      "date_of_birth": "1930-01-01"
+    }
+  ]
+}
