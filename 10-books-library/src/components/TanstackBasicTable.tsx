@@ -14,7 +14,7 @@ const TanstackBasicTable = <TData, TValue>({ columns, data }: TanstackBasicTable
 	});
 
 	return (
-		<BS_Table bordered hover responsive striped size="sm">
+		<BS_Table bordered hover responsive striped>
 			<thead>
 				{table.getHeaderGroups().map(headerGroup => (
 					<tr key={headerGroup.id}>
