@@ -3,7 +3,7 @@
     {
       "title": "The Hitchhiker's Guide to the Galaxy",
       "authorId": 1,
-      "published": "1979",
+      "published": 1979,
       "pages": 224,
       "id": 1
     },
@@ -66,22 +66,22 @@
     {
       "title": "My pants - A love story",
       "authorId": 9,
-      "published": "1789",
-      "pages": "420",
+      "published": 1789,
+      "pages": 420,
       "id": 10
     },
     {
       "title": "My trousers - A second love story",
       "authorId": 9,
-      "published": "1790",
-      "pages": "333",
+      "published": 1790,
+      "pages": 333,
       "id": 11
     },
     {
       "title": "My shorts - A third love story",
       "authorId": 9,
-      "published": "1792",
-      "pages": "650",
+      "published": 1792,
+      "pages": 650,
       "id": 12
     }
   ],
