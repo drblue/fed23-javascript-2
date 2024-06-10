@@ -11,8 +11,8 @@ export type Book = {
 	authorId: number;
 	author: Author;
 };
-export type NewBook = Omit<Book, "id">;
-export type PartialBook = Partial<Book>;
+export type NewBook = Omit<Book, "id" | "author">;
+export type PartialBook = Partial<NewBook>;
 
 // Author types
 export type Author = {
@@ -22,4 +22,4 @@ export type Author = {
 };
 export type AuthorWithBooks = Author & { books: Book[] };
 export type NewAuthor = Omit<Author, "id">;
-export type PartialAuthor = Partial<Author>;
+export type PartialAuthor = Partial<NewAuthor>;
