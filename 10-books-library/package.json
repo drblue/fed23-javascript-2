@@ -13,6 +13,7 @@
   "dependencies": {
     "@tanstack/react-query": "^5.40.1",
     "@tanstack/react-query-devtools": "^5.40.1",
+    "@tanstack/react-table": "^8.17.3",
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
     "json-server": "^0.17.4",
