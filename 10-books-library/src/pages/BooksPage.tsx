@@ -12,10 +12,16 @@ const columnDefs: ColumnDef<Book>[] = [
 	{
 		accessorKey: "pages",
 		header: "Pages",
+		meta: {
+			align: "end",
+		},
 	},
 	{
 		accessorKey: "published",
 		header: "Published",
+		meta: {
+			align: "end",
+		},
 	},
 	{
 		accessorKey: "author.name",

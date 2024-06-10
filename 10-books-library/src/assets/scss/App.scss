@@ -14,3 +14,17 @@ h1, h2, h3, h4, h5, h6 {
 	right: 4.5rem;
 	z-index: 1;  // nobody puts pacman behind listgroup
 }
+
+.table {
+	td {
+		&.center {
+			text-align: center;
+		}
+		&.end {
+			text-align: end;
+		}
+		&.start {
+			text-align: start;
+		}
+	}
+}
