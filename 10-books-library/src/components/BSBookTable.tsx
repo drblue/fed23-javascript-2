@@ -84,10 +84,15 @@ const BSBookTable: React.FC<BSBookTableProps> = ({ books }) => {
 		<Table bordered hover responsive striped>
 			<thead>
 				<tr>
+					<th colSpan={3}>Book Info</th>
+					<th colSpan={2}>Author Info</th>
+				</tr>
+				<tr>
 					<th onClick={() => orderBy("title")}>Title {sortIcon("title")}</th>
-					<th>Author</th>
 					<th onClick={() => orderBy("pages")}>Pages {sortIcon("pages")}</th>
 					<th onClick={() => orderBy("published")}>Published {sortIcon("published")}</th>
+					<th>Author</th>
+					<th>Author Birthdate</th>
 				</tr>
 			</thead>
 
@@ -95,13 +100,14 @@ const BSBookTable: React.FC<BSBookTableProps> = ({ books }) => {
 				{sortedData.map(book => (
 					<tr key={book.id}>
 						<td>{book.title}</td>
+						<td className="text-end">{book.pages}</td>
+						<td className="text-end">{book.published}</td>
 						<td>
 							<Link to={"/authors/" + book.authorId}>
 								{book.author.name}
 							</Link>
 						</td>
-						<td className="text-end">{book.pages}</td>
-						<td className="text-end">{book.published}</td>
+						<td className="text-end">{book.author.date_of_birth}</td>
 					</tr>
 				))}
 			</tbody>
