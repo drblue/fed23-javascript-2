@@ -24,7 +24,7 @@ const columnHelper = createColumnHelper<Author>();
 
 const columns = [
 	columnHelper.group({
-		header: "ID",
+		id: "id-group",
 		columns: [
 			columnHelper.accessor("id", {
 				header: "ID",
