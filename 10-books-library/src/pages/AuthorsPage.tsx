@@ -1,7 +1,7 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { Link } from "react-router-dom";
 import WarningAlert from "../components/alerts/WarningAlert";
-import TanstackBasicTable from "../components/TanstackBasicTable";
+import TanstackSortableTable from "../components/TanstackSortableTable";
 import useAuthors from "../hooks/useAuthors";
 import { Author } from "../services/BooksAPI.types";
 
@@ -91,7 +91,7 @@ const AuthorsPage = () => {
 
 			{isLoading && <p>Loading authors...</p>}
 
-			{authors && <TanstackBasicTable columns={columns} data={authors} />}
+			{authors && <TanstackSortableTable columns={columns} data={authors} />}
 		</>
 	);
 };

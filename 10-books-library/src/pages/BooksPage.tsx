@@ -1,6 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
 import WarningAlert from "../components/alerts/WarningAlert";
-import TanstackBasicTable from "../components/TanstackBasicTable";
+import TanstackSortableTable from "../components/TanstackSortableTable";
 import useBooks from "../hooks/useBooks";
 import { Book } from "../services/BooksAPI.types";
 
@@ -44,7 +44,7 @@ const BooksPage = () => {
 
 			{isLoading && <p>Loading books...</p>}
 
-			{books && <TanstackBasicTable columns={columnDefs} data={books} />}
+			{books && <TanstackSortableTable columns={columnDefs} data={books} />}
 		</>
 	);
 };
