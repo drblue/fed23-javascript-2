@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Table from "react-bootstrap/Table";
 import { Link } from "react-router-dom";
-import { Author } from "../services/BooksAPI.types";
+import { Author } from "../../services/BooksAPI.types";
 
 interface BSAuthorTableProps {
 	authors: Author[];

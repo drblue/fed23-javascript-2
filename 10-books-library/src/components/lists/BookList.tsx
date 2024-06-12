@@ -1,6 +1,6 @@
 import React from "react";
 import ListGroup from "react-bootstrap/ListGroup";
-import { Book } from "../services/BooksAPI.types";
+import { Book } from "../../services/BooksAPI.types";
 
 interface BookListProps {
 	books: Book[];

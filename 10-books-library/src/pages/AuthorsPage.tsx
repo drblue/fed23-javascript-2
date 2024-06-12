@@ -1,7 +1,7 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { Link } from "react-router-dom";
 import WarningAlert from "../components/alerts/WarningAlert";
-import TanstackSortableTable from "../components/TanstackSortableTable";
+import TanstackSortableTable from "../components/tables/TanstackSortableTable";
 import useAuthors from "../hooks/useAuthors";
 import { Author } from "../services/BooksAPI.types";
 

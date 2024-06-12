@@ -1,7 +1,7 @@
 import React from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Link } from "react-router-dom";
-import { Author } from "../services/BooksAPI.types";
+import { Author } from "../../services/BooksAPI.types";
 
 interface AuthorListProps {
 	authors: Author[];

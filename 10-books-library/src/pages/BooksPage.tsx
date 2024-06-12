@@ -1,6 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
 import WarningAlert from "../components/alerts/WarningAlert";
-import TanstackSortableTable from "../components/TanstackSortableTable";
+import TanstackSortableTable from "../components/tables/TanstackSortableTable";
 import useBooks from "../hooks/useBooks";
 import { Book } from "../services/BooksAPI.types";
 

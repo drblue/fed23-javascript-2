@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Table from "react-bootstrap/Table";
 import { Link } from "react-router-dom";
-import { Book } from "../services/BooksAPI.types";
+import { Book } from "../../services/BooksAPI.types";
 
 interface BSBookTableProps {
 	books: Book[];

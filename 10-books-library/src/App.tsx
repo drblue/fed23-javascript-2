@@ -2,7 +2,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Container from "react-bootstrap/Container";
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import GlobalLoadingSpinner from "./components/GlobalLoadingSpinner";
+import GlobalLoadingSpinner from "./components/spinners/GlobalLoadingSpinner";
 import Navigation from "./pages/partials/Navigation";
 import AuthorsPage from "./pages/AuthorsPage";
 import AuthorPage from "./pages/AuthorPage";
