@@ -130,6 +130,16 @@
       "id": 9,
       "name": "Mr Fancy Pants",
       "date_of_birth": "1930-01-01"
+    },
+    {
+      "name": "Jane Austen",
+      "date_of_birth": "1775-12-16",
+      "id": 10
+    },
+    {
+      "name": "Astrid Lindgren",
+      "date_of_birth": "1907-11-14",
+      "id": 11
     }
   ]
 }

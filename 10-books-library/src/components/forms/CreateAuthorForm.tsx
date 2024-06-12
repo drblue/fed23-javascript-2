@@ -1,15 +1,17 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 import useCreateAuthor from "../../hooks/useCreateAuthor";
 import { NewAuthor } from "../../services/BooksAPI.types";
 
 const CreateAuthorForm = () => {
-	const { handleSubmit, register } = useForm<NewAuthor>();
+	const { handleSubmit, register, formState: { errors } } = useForm<NewAuthor>();
+	const createAuthorMutation = useCreateAuthor();
 
 	const onCreateAuthorSubmit: SubmitHandler<NewAuthor> = (data) => {
 		console.log("Submitted data:", data);
+
+		createAuthorMutation.mutate(data);
 	}
 
 	return (
@@ -19,16 +21,23 @@ const CreateAuthorForm = () => {
 				<Form.Control
 					placeholder="Astrid Lindgren"
 					type="text"
-					{...register("name")}
+					{...register("name", {
+						minLength: 3,
+						required: true,
+					})}
 				/>
+				{errors.name && <p className="text-danger">Y U ENTER TOO SHORT NAME?!</p>}
 			</Form.Group>
 
 			<Form.Group className="mb-3" controlId="date_of_birth">
 				<Form.Label>Date of Birth</Form.Label>
 				<Form.Control
 					type="date"
-					{...register("date_of_birth")}
+					{...register("date_of_birth", {
+						required: true,
+					})}
 				/>
+				{errors.date_of_birth && <p className="text-danger">Y U NO IS BORN?!</p>}
 			</Form.Group>
 
 			<div className="d-flex justify-content-end">

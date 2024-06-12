@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { createAuthor } from "../services/BooksAPI";
-import { Author } from "../services/BooksAPI.types";
+import { Author, AuthorWithBooks } from "../services/BooksAPI.types";
 
 const useCreateAuthor = () => {
 	const queryClient = useQueryClient();
@@ -24,7 +24,12 @@ const useCreateAuthor = () => {
 			});
 
 			// also insert the new author into the query cache
-			queryClient.setQueryData(["author", { id: newAuthor.id }], newAuthor);
+			queryClient.setQueryData<AuthorWithBooks>(["author", { id: newAuthor.id }],
+				{
+					...newAuthor,
+					books: [],
+				}
+			);
 
 			// 🥂
 			toast.success("Author created 🤩");
