@@ -1,25 +1,11 @@
 import { createColumnHelper } from "@tanstack/react-table";
+import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
 import WarningAlert from "../components/alerts/WarningAlert";
+import CreateAuthorForm from "../components/forms/CreateAuthorForm";
 import TanstackSortableTable from "../components/tables/TanstackSortableTable";
 import useAuthors from "../hooks/useAuthors";
 import { Author } from "../services/BooksAPI.types";
-
-/*
-const columns: ColumnDef<Author>[] = [
-	{
-		accessorKey: "name",
-		header: "Name",
-	},
-	{
-		accessorKey: "date_of_birth",
-		header: "Date of birth",
-		meta: {
-			align: "end",
-		},
-	},
-];
-*/
 
 const columnHelper = createColumnHelper<Author>();
 
@@ -92,6 +78,15 @@ const AuthorsPage = () => {
 			{isLoading && <p>Loading authors...</p>}
 
 			{authors && <TanstackSortableTable columns={columns} data={authors} />}
+
+			<hr className="mb-5" />
+
+			<Card>
+				<Card.Body>
+					<Card.Title>Create Author</Card.Title>
+					<CreateAuthorForm />
+				</Card.Body>
+			</Card>
 		</>
 	);
 };
