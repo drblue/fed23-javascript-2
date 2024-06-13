@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { createBook } from "../services/BooksAPI";
-import { Book } from "../services/BooksAPI.types";
 
 const useCreateBook = () => {
 	const queryClient = useQueryClient();
@@ -19,9 +18,10 @@ const useCreateBook = () => {
 			);
 		},
 		onSuccess: (newBook) => {
-			// update the books list in the cache
-			queryClient.setQueryData<Book[]>(["books"], (prevBooks) => {
-				return [...(prevBooks ?? []), newBook];
+			// invalidate the books list (or use the fetchQuery + setQueryData
+			// from `09-react-query-todos/src/hooks/useCreateTodo.ts`)
+			queryClient.invalidateQueries({
+				queryKey: ["books"],
 			});
 
 			// also insert the new book into the query cache

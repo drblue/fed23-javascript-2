@@ -1,6 +1,8 @@
+import Card from "react-bootstrap/Card";
 import { useParams } from "react-router-dom";
 import WarningAlert from "../components/alerts/WarningAlert";
 import useAuthor from "../hooks/useAuthor";
+import CreateAuthorBookForm from "../components/forms/CreateAuthorBookForm";
 
 const AuthorPage = () => {
 	const { id } = useParams();
@@ -30,6 +32,15 @@ const AuthorPage = () => {
 					</ul>
 				</>
 			)}
+
+			<hr className="mb-5" />
+
+			<Card>
+				<Card.Body>
+					<Card.Title>Create Book</Card.Title>
+					<CreateAuthorBookForm authorId={authorId} />
+				</Card.Body>
+			</Card>
 		</>
 	);
 };

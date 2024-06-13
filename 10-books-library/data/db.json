@@ -83,6 +83,20 @@
       "published": 1792,
       "pages": 650,
       "id": 12
+    },
+    {
+      "title": "Pride and Prejudice",
+      "pages": "384",
+      "published": "1813",
+      "authorId": 10,
+      "id": 13
+    },
+    {
+      "title": "Pippi Långstrump",
+      "pages": "130",
+      "published": "1991",
+      "authorId": 11,
+      "id": 14
     }
   ],
   "authors": [
