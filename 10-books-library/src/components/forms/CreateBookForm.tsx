@@ -12,7 +12,7 @@ interface CreateBookFormProps {
 }
 
 const CreateBookForm: React.FC<CreateBookFormProps> = ({ authorId }) => {
-	const { handleSubmit, register, formState: { errors } } = useForm<NewBook>();
+	const { handleSubmit, register, formState: { errors }, reset } = useForm<NewBook>();
 	const createBookMutation = useCreateBook();
 	const { data: authors } = useAuthors();
 
@@ -20,10 +20,21 @@ const CreateBookForm: React.FC<CreateBookFormProps> = ({ authorId }) => {
 		const data = authorId ? {...formData, authorId} : formData;
 		console.log("Submitted data:", data);
 
-		createBookMutation.mutate(data);
+		createBookMutation.mutate(data, {
+			onSuccess: () => {
+				reset(); // reset form
+			}
+		});
 	}
 
 	const sortedAuthors = authors && [...authors].sort((a, b) => a.name.localeCompare(b.name));
+
+	// detect when isSubmitSuccesful (from useForm formState) changes value and then reset the form
+	/*
+	useEffect(() => {
+		reset();
+	}, [isSubmitSuccessful, reset]);
+	*/
 
 	return (
 		<Form onSubmit={handleSubmit(onCreateAuthorSubmit)}>
@@ -84,7 +95,7 @@ const CreateBookForm: React.FC<CreateBookFormProps> = ({ authorId }) => {
 			</Form.Group>
 
 			<div className="d-flex justify-content-end">
-				<Button variant="success" type="submit">
+				<Button variant="success" type="submit" disabled={createBookMutation.isPending}>
 					Create
 				</Button>
 			</div>
