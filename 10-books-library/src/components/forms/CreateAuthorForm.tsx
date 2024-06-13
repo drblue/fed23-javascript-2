@@ -26,7 +26,7 @@ const CreateAuthorForm = () => {
 						required: true,
 					})}
 				/>
-				{errors.name && <p className="text-danger">Y U ENTER TOO SHORT NAME?!</p>}
+				{errors.name && <p className="invalid">Y U ENTER TOO SHORT NAME?!</p>}
 			</Form.Group>
 
 			<Form.Group className="mb-3" controlId="date_of_birth">
@@ -37,7 +37,7 @@ const CreateAuthorForm = () => {
 						required: true,
 					})}
 				/>
-				{errors.date_of_birth && <p className="text-danger">Y U NO IS BORN?!</p>}
+				{errors.date_of_birth && <p className="invalid">Y U NO IS BORN?!</p>}
 			</Form.Group>
 
 			<div className="d-flex justify-content-end">

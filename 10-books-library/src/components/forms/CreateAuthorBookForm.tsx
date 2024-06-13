@@ -35,7 +35,7 @@ const CreateAuthorBookForm: React.FC<CreateAuthorBookFormProps> = ({ authorId })
 						required: true,
 					})}
 				/>
-				{errors.title && <p className="text-danger">A book without a title is not a book</p>}
+				{errors.title && <p className="invalid">A book without a title is not a book</p>}
 			</Form.Group>
 
 			<Form.Group className="mb-3" controlId="pages">
@@ -47,7 +47,7 @@ const CreateAuthorBookForm: React.FC<CreateAuthorBookFormProps> = ({ authorId })
 						min: 1,
 					})}
 				/>
-				{errors.pages && <p className="text-danger">A book has to have at least 1 page</p>}
+				{errors.pages && <p className="invalid">A book has to have at least 1 page</p>}
 			</Form.Group>
 
 			<Form.Group className="mb-3" controlId="published">
@@ -60,7 +60,7 @@ const CreateAuthorBookForm: React.FC<CreateAuthorBookFormProps> = ({ authorId })
 						max: currentYear,
 					})}
 				/>
-				{errors.published && <p className="text-danger">Year of publication has to be between 1455 and {currentYear}</p>}
+				{errors.published && <p className="invalid">Year of publication has to be between 1455 and {currentYear}</p>}
 			</Form.Group>
 
 			<div className="d-flex justify-content-end">
