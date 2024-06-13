@@ -16,7 +16,8 @@ const CreateBookForm: React.FC<CreateBookFormProps> = ({ authorId }) => {
 	const createBookMutation = useCreateBook();
 	const { data: authors } = useAuthors();
 
-	const onCreateAuthorSubmit: SubmitHandler<NewBook> = (data) => {
+	const onCreateAuthorSubmit: SubmitHandler<NewBook> = (formData) => {
+		const data = authorId ? {...formData, authorId} : formData;
 		console.log("Submitted data:", data);
 
 		createBookMutation.mutate(data);
@@ -39,20 +40,23 @@ const CreateBookForm: React.FC<CreateBookFormProps> = ({ authorId }) => {
 				{errors.title && <p className="invalid">A book without a title is not a book</p>}
 			</Form.Group>
 
-			<Form.Group className="mb-3" controlId="authorId">
-				<Form.Label>Author</Form.Label>
-				<Form.Select
-					{...register("authorId", {
-						required: true,
-					})}
-				>
-					{sortedAuthors
-						? sortedAuthors.map(author =>
-							<option key={author.id} value={author.id}>{author.name}</option>
-						) : <option>Loading...</option>}
-				</Form.Select>
-				{errors.authorId && <p className="invalid">A book without a author is not a book</p>}
-			</Form.Group>
+			{!authorId && (
+				<Form.Group className="mb-3" controlId="authorId">
+					<Form.Label>Author</Form.Label>
+					<Form.Select
+						{...register("authorId", {
+							required: true,
+						})}
+					>
+						{sortedAuthors ?
+							sortedAuthors.map(author =>
+								<option key={author.id} value={author.id}>{author.name}</option>
+							) : <option>Loading...</option>
+						}
+					</Form.Select>
+					{errors.authorId && <p className="invalid">A book without a author is not a book</p>}
+				</Form.Group>
+			)}
 
 			<Form.Group className="mb-3" controlId="pages">
 				<Form.Label>Number of pages</Form.Label>

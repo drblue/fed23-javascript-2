@@ -104,6 +104,20 @@
       "pages": "130",
       "published": "1991",
       "id": 15
+    },
+    {
+      "title": "Jak e snel hest 🐴",
+      "authorId": "9",
+      "pages": "13",
+      "published": "1982",
+      "id": 16
+    },
+    {
+      "title": "Tea and Biscuits",
+      "pages": "4",
+      "published": "2024",
+      "authorId": 10,
+      "id": 17
     }
   ],
   "authors": [
