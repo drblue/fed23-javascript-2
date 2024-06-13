@@ -1,11 +1,11 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
-import WarningAlert from "../components/alerts/WarningAlert";
-import CreateAuthorForm from "../components/forms/CreateAuthorForm";
-import TanstackSortableTable from "../components/tables/TanstackSortableTable";
-import useAuthors from "../hooks/useAuthors";
-import { Author } from "../services/BooksAPI.types";
+import WarningAlert from "../../components/alerts/WarningAlert";
+import CreateAuthorForm from "../../components/forms/CreateAuthorForm";
+import TanstackSortableTable from "../../components/tables/TanstackSortableTable";
+import useAuthors from "../../hooks/useAuthors";
+import { Author } from "../../services/BooksAPI.types";
 
 const columnHelper = createColumnHelper<Author>();
 

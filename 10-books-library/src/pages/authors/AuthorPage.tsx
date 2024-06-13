@@ -1,8 +1,8 @@
 import Card from "react-bootstrap/Card";
 import { useParams } from "react-router-dom";
-import WarningAlert from "../components/alerts/WarningAlert";
-import useAuthor from "../hooks/useAuthor";
-import CreateBookForm from "../components/forms/CreateBookForm";
+import WarningAlert from "../../components/alerts/WarningAlert";
+import useAuthor from "../../hooks/useAuthor";
+import CreateBookForm from "../../components/forms/CreateBookForm";
 
 const AuthorPage = () => {
 	const { id } = useParams();

@@ -1,10 +1,10 @@
 import { ColumnDef } from "@tanstack/react-table";
 import Card from "react-bootstrap/Card";
-import WarningAlert from "../components/alerts/WarningAlert";
-import CreateBookForm from "../components/forms/CreateBookForm";
-import TanstackSortableTable from "../components/tables/TanstackSortableTable";
-import useBooks from "../hooks/useBooks";
-import { Book } from "../services/BooksAPI.types";
+import WarningAlert from "../../components/alerts/WarningAlert";
+import CreateBookForm from "../../components/forms/CreateBookForm";
+import TanstackSortableTable from "../../components/tables/TanstackSortableTable";
+import useBooks from "../../hooks/useBooks";
+import { Book } from "../../services/BooksAPI.types";
 
 const columnDefs: ColumnDef<Book>[] = [
 	{
