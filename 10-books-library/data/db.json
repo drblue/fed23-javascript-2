@@ -97,6 +97,13 @@
       "published": "1991",
       "authorId": 11,
       "id": 14
+    },
+    {
+      "title": "Pippi Långstrump och de 7 sjörövarna",
+      "authorId": "1",
+      "pages": "130",
+      "published": "1991",
+      "id": 15
     }
   ],
   "authors": [
