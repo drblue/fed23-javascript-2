@@ -2,20 +2,37 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { SubmitHandler, useForm } from "react-hook-form";
 import useCreateAuthor from "../../hooks/useCreateAuthor";
-import { NewAuthor } from "../../services/BooksAPI.types";
+import { Author, NewAuthor } from "../../services/BooksAPI.types";
+import useUpdateAuthor from "../../hooks/useUpdateAuthor";
 
-const CreateAuthorForm = () => {
-	const { handleSubmit, register, formState: { errors } } = useForm<NewAuthor>();
+interface AuthorFormProps {
+	author?: Author;
+}
+
+const AuthorForm: React.FC<AuthorFormProps> = ({ author }) => {
+	const { handleSubmit, register, formState: { errors } } = useForm<NewAuthor>({
+		defaultValues: {
+			name: author?.name,
+			date_of_birth: author?.date_of_birth,
+		},
+	});
 	const createAuthorMutation = useCreateAuthor();
+	const updateAuthorMutation = useUpdateAuthor(author?.id ?? 0);
 
-	const onCreateAuthorSubmit: SubmitHandler<NewAuthor> = (data) => {
+	const onAuthorSubmit: SubmitHandler<NewAuthor> = (data) => {
 		console.log("Submitted data:", data);
 
-		createAuthorMutation.mutate(data);
+		// if we were passed an author via props then we should update
+		// otherwise create
+		if (author) {
+			updateAuthorMutation.mutate(data);
+		} else {
+			createAuthorMutation.mutate(data);
+		}
 	}
 
 	return (
-		<Form onSubmit={handleSubmit(onCreateAuthorSubmit)}>
+		<Form onSubmit={handleSubmit(onAuthorSubmit)}>
 			<Form.Group className="mb-3" controlId="name">
 				<Form.Label>Author Name</Form.Label>
 				<Form.Control
@@ -42,11 +59,11 @@ const CreateAuthorForm = () => {
 
 			<div className="d-flex justify-content-end">
 				<Button variant="success" type="submit">
-					Create
+					Save
 				</Button>
 			</div>
 		</Form>
 	);
 };
 
-export default CreateAuthorForm;
+export default AuthorForm;

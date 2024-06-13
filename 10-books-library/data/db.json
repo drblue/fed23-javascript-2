@@ -175,6 +175,16 @@
       "name": "Astrid Lindgren",
       "date_of_birth": "1907-11-14",
       "id": 11
+    },
+    {
+      "name": "Lucy Lemon",
+      "date_of_birth": "2024-04-01",
+      "id": 12
+    },
+    {
+      "name": "David Date",
+      "date_of_birth": "1994-12-24",
+      "id": 13
     }
   ]
 }

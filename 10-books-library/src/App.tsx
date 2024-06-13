@@ -6,6 +6,7 @@ import GlobalLoadingSpinner from "./components/spinners/GlobalLoadingSpinner";
 import Navigation from "./pages/partials/Navigation";
 import AuthorsPage from "./pages/authors/AuthorsPage";
 import AuthorPage from "./pages/authors/AuthorPage";
+import EditAuthorPage from "./pages/authors/EditAuthorPage";
 import BooksPage from "./pages/books/BooksPage";
 import HomePage from "./pages/HomePage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -23,6 +24,7 @@ function App() {
 
 					<Route path="/authors" element={<AuthorsPage />} />
 					<Route path="/authors/:id" element={<AuthorPage />} />
+					<Route path="/authors/:id/edit" element={<EditAuthorPage />} />
 					<Route path="/books" element={<BooksPage />} />
 
 					<Route path="*" element={<NotFoundPage />} />
