@@ -185,6 +185,11 @@
       "name": "David Date",
       "date_of_birth": "1994-12-24",
       "id": 13
+    },
+    {
+      "name": "Frederik Fruitsalad",
+      "date_of_birth": "2024-06-13",
+      "id": 14
     }
   ]
 }

@@ -2,6 +2,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
 import WarningAlert from "../../components/alerts/WarningAlert";
+import PageTransition from "../../components/animations/PageTransition";
 import AuthorForm from "../../components/forms/AuthorForm";
 import TanstackSortableTable from "../../components/tables/TanstackSortableTable";
 import useAuthors from "../../hooks/useAuthors";
@@ -72,7 +73,7 @@ const AuthorsPage = () => {
 	const { data: authors, isError, isLoading } = useAuthors();
 
 	return (
-		<>
+		<PageTransition id="authors-page" key="authors-page">
 			<h1 className="mb-3">Authors</h1>
 
 			{isError && (
@@ -93,7 +94,7 @@ const AuthorsPage = () => {
 					<AuthorForm />
 				</Card.Body>
 			</Card>
-		</>
+		</PageTransition>
 	);
 };
 
