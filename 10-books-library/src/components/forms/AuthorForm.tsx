@@ -1,26 +1,29 @@
 import { DevTool } from "@hookform/devtools";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { SubmitHandler, useForm } from "react-hook-form";
 import useCreateAuthor from "../../hooks/useCreateAuthor";
-import { Author, NewAuthor } from "../../services/BooksAPI.types";
+import { Author } from "../../services/BooksAPI.types";
 import useUpdateAuthor from "../../hooks/useUpdateAuthor";
+import { AuthorSchema, authorSchema } from "../../schemas/AuthorSchema";
 
 interface AuthorFormProps {
 	author?: Author;
 }
 
 const AuthorForm: React.FC<AuthorFormProps> = ({ author }) => {
-	const { control, handleSubmit, register, formState: { errors } } = useForm<NewAuthor>({
+	const { control, handleSubmit, register, formState: { errors } } = useForm<AuthorSchema>({
 		defaultValues: {
 			name: author?.name,
 			date_of_birth: author?.date_of_birth,
 		},
+		resolver: zodResolver(authorSchema),
 	});
 	const createAuthorMutation = useCreateAuthor();
 	const updateAuthorMutation = useUpdateAuthor(author?.id ?? 0);
 
-	const onAuthorSubmit: SubmitHandler<NewAuthor> = (data) => {
+	const onAuthorSubmit: SubmitHandler<AuthorSchema> = (data) => {
 		console.log("Submitted data:", data);
 
 		// if we were passed an author via props then we should update
@@ -40,16 +43,7 @@ const AuthorForm: React.FC<AuthorFormProps> = ({ author }) => {
 					<Form.Control
 						placeholder="Astrid Lindgren"
 						type="text"
-						{...register("name", {
-							minLength: {
-								message: "Name has to be at least 3 characters",
-								value: 3,
-							},
-							required: {
-								message: "Name is required",
-								value: true,
-							},
-						})}
+						{...register("name")}
 					/>
 					{errors.name && <p className="invalid">{errors.name.message}</p>}
 				</Form.Group>
@@ -58,9 +52,7 @@ const AuthorForm: React.FC<AuthorFormProps> = ({ author }) => {
 					<Form.Label>Date of Birth</Form.Label>
 					<Form.Control
 						type="date"
-						{...register("date_of_birth", {
-							required: "Author has to have a date of birth",
-						})}
+						{...register("date_of_birth")}
 					/>
 					{errors.date_of_birth && <p className="invalid">{errors.date_of_birth.message}</p>}
 				</Form.Group>

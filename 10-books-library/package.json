@@ -11,6 +11,7 @@
     "server": "json-server --watch data/db.json --port 3000 --delay 500"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.6.0",
     "@tanstack/react-query": "^5.40.1",
     "@tanstack/react-query-devtools": "^5.40.1",
     "@tanstack/react-table": "^8.17.3",
@@ -25,7 +26,8 @@
     "react-router-dom": "^6.23.1",
     "react-spinners": "^0.13.8",
     "react-toastify": "^10.0.5",
-    "sass": "^1.77.4"
+    "sass": "^1.77.4",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@hookform/devtools": "^4.3.1",
