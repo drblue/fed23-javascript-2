@@ -39,11 +39,17 @@ const AuthorForm: React.FC<AuthorFormProps> = ({ author }) => {
 					placeholder="Astrid Lindgren"
 					type="text"
 					{...register("name", {
-						minLength: 3,
-						required: true,
+						minLength: {
+							message: "Name has to be at least 3 characters",
+							value: 3,
+						},
+						required: {
+							message: "Name is required",
+							value: true,
+						},
 					})}
 				/>
-				{errors.name && <p className="invalid">Y U ENTER TOO SHORT NAME?!</p>}
+				{errors.name && <p className="invalid">{errors.name.message}</p>}
 			</Form.Group>
 
 			<Form.Group className="mb-3" controlId="date_of_birth">
@@ -51,10 +57,10 @@ const AuthorForm: React.FC<AuthorFormProps> = ({ author }) => {
 				<Form.Control
 					type="date"
 					{...register("date_of_birth", {
-						required: true,
+						required: "Author has to have a date of birth",
 					})}
 				/>
-				{errors.date_of_birth && <p className="invalid">Y U NO IS BORN?!</p>}
+				{errors.date_of_birth && <p className="invalid">{errors.date_of_birth.message}</p>}
 			</Form.Group>
 
 			<div className="d-flex justify-content-end">
