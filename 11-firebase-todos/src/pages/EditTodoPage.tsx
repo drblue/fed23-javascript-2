@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
-import Alert from "react-bootstrap/Alert";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Todo } from "../types/Todo.types";
 
 const todo: Todo = {
-	id: "133713371337",
+	_id: "133713371337",
 	title: "Learn to fake better data 😅",
 	completed: true,
 };

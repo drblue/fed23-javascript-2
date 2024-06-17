@@ -1,13 +1,13 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ConfirmationModal from "../components/ConfirmationModal";
 import AutoDismissingAlert from "../components/AutoDismissingAlert";
 import useStatusLocation from "../hooks/useStatusLocation";
 import { Todo } from "../types/Todo.types";
 
 const todo: Todo = {
-	id: "Xi6VigUyelerlFbSHKTZ",
+	_id: "Xi6VigUyelerlFbSHKTZ",
 	title: "Learn to fake better data 😅",
 	completed: true,
 };
@@ -20,7 +20,7 @@ const TodoPage = () => {
 
 	return (
 		<>
-			<h1 title={`Todo #${todo.id}`}>{todo.title}</h1>
+			<h1 title={`Todo #${todo._id}`}>{todo.title}</h1>
 
 			{location.state && location.state.status && (
 				<AutoDismissingAlert hideAfter={1000} variant={location.state.status.type}>

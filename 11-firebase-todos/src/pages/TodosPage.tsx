@@ -1,5 +1,5 @@
 import ListGroup from "react-bootstrap/ListGroup";
-import { Link, Location, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import AddNewTodoForm from "../components/AddNewTodoForm";
 import AutoDismissingAlert from "../components/AutoDismissingAlert";
 import TodoCounter from "../components/TodoCounter";
@@ -8,22 +8,22 @@ import { NewTodo, Todo } from "../types/Todo.types";
 
 const todos: Todo[] = [
 	{
-		id: "Akpxptx7jdJ7SCOIuD16",
+		_id: "Akpxptx7jdJ7SCOIuD16",
 		title: "Learn React 😊",
 		completed: true,
 	},
 	{
-		id: "T4MKhcTg5bOHz80TOXwd",
+		_id: "T4MKhcTg5bOHz80TOXwd",
 		title: "Learn Firebase 🔥",
 		completed: false,
 	},
 	{
-		id: "fTZcsgGFiffA4DadSmQ2",
+		_id: "fTZcsgGFiffA4DadSmQ2",
 		title: "Profit 💰",
 		completed: false,
 	},
 	{
-		id: "pTLjnG6VDRMwnUqXzTV7",
+		_id: "pTLjnG6VDRMwnUqXzTV7",
 		title: "Take over the world 😈",
 		completed: false,
 	},
@@ -58,8 +58,8 @@ function TodosPage() {
 								action
 								as={Link}
 								className={todo.completed ? "done" : ""}
-								key={todo.id}
-								to={`/todos/${todo.id}`}
+								key={todo._id}
+								to={`/todos/${todo._id}`}
 							>
 								<span className="todo-title">{todo.title}</span>
 							</ListGroup.Item>
