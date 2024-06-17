@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Link } from "react-router-dom";
 import { CollectionReference, collection, getDocs } from "firebase/firestore";
@@ -49,7 +50,10 @@ function TodosPage() {
 
 	return (
 		<>
-			<h1>Todos</h1>
+			<div className="d-flex justify-content-between align-items-start">
+				<h1 className="mb-3">Todos</h1>
+				<Button variant="primary" onClick={() => getTodos()}>Reload</Button>
+			</div>
 
 			{location.state && location.state.status && (
 				<AutoDismissingAlert hideAfter={1000} variant={location.state.status.type}>
