@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Link } from "react-router-dom";
-import { CollectionReference, collection, getDocs } from "firebase/firestore";
+import { getDocs } from "firebase/firestore";
 import AddNewTodoForm from "../components/AddNewTodoForm";
 import AutoDismissingAlert from "../components/AutoDismissingAlert";
 import TodoCounter from "../components/TodoCounter";
 import useStatusLocation from "../hooks/useStatusLocation";
-import { db } from "../services/firebase";
+import { todosCol } from "../services/firebase";
 import { NewTodo, Todo } from "../types/Todo.types";
 
 function TodosPage() {
@@ -24,12 +24,10 @@ function TodosPage() {
 	// Get todos
 	const getTodos = async () => {
 		setLoading(true);
-
-		// Get reference to collection "todos"
-		const colRef = collection(db, "todos") as CollectionReference<Todo>;
+		setTodos(null);
 
 		// Get query snapshot of collection
-		const snapshot = await getDocs(colRef);
+		const snapshot = await getDocs(todosCol);
 
 		// Loop over all docs
 		const data = snapshot.docs.map(doc => {

@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { CollectionReference, collection, getFirestore } from "firebase/firestore";
+import { Todo } from "../types/Todo.types";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -16,5 +17,8 @@ const app = initializeApp(firebaseConfig);
 
 // Get Firestore Instance
 export const db = getFirestore(app);
+
+// Our collection references
+export const todosCol = collection(db, "todos") as CollectionReference<Todo>;
 
 export default app;
