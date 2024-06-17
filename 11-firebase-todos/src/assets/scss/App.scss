@@ -1,0 +1,47 @@
+@import "bootstrap/scss/bootstrap";
+@import "react-toastify/scss/main";
+
+// make react-toastify more bootstrapp-y
+@import "toastify";
+
+h1, h2, h3, h4, h5, h6 {
+	margin-bottom: 0.75em;
+}
+
+#global-loading-spinner-wrapper {
+	position: fixed;
+	top: 4.5rem;
+	right: 4.5rem;
+	z-index: 1;  // nobody puts pacman behind listgroup
+}
+
+.todolist {
+	margin-bottom: 1.5rem;
+
+	.list-group-item {
+		display: flex;
+		justify-content: space-between;
+
+		&.done {
+			.todo-title {
+				color: $success;
+				font-style: italic;
+				text-decoration: line-through;
+			}
+		}
+	}
+}
+
+.completed {
+	color: $success;
+}
+
+.not-completed {
+	color: $danger;
+}
+
+.modal {
+	.modal-title {
+		margin-bottom: 0;
+	}
+}
