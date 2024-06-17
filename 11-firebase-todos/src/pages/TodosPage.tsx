@@ -1,35 +1,17 @@
+import { useEffect, useState } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Link } from "react-router-dom";
+import { CollectionReference, collection, getDocs } from "firebase/firestore";
 import AddNewTodoForm from "../components/AddNewTodoForm";
 import AutoDismissingAlert from "../components/AutoDismissingAlert";
 import TodoCounter from "../components/TodoCounter";
 import useStatusLocation from "../hooks/useStatusLocation";
+import { db } from "../services/firebase";
 import { NewTodo, Todo } from "../types/Todo.types";
 
-const todos: Todo[] = [
-	{
-		_id: "Akpxptx7jdJ7SCOIuD16",
-		title: "Learn React 😊",
-		completed: true,
-	},
-	{
-		_id: "T4MKhcTg5bOHz80TOXwd",
-		title: "Learn Firebase 🔥",
-		completed: false,
-	},
-	{
-		_id: "fTZcsgGFiffA4DadSmQ2",
-		title: "Profit 💰",
-		completed: false,
-	},
-	{
-		_id: "pTLjnG6VDRMwnUqXzTV7",
-		title: "Take over the world 😈",
-		completed: false,
-	},
-];
-
 function TodosPage() {
+	const [loading, setLoading] = useState(true);
+	const [todos, setTodos] = useState<Todo[] | null>(null);
 	const location = useStatusLocation();
 
 	// Create a new todo in the API
@@ -37,6 +19,33 @@ function TodosPage() {
 		// 👻
 		console.log("Would add a new todo:", todo);
 	};
+
+	// Get todos
+	const getTodos = async () => {
+		setLoading(true);
+
+		// Get reference to collection "todos"
+		const colRef = collection(db, "todos") as CollectionReference<Todo>;
+
+		// Get query snapshot of collection
+		const snapshot = await getDocs(colRef);
+
+		// Loop over all docs
+		const data = snapshot.docs.map(doc => {
+			return {
+				...doc.data(), // title, completed
+				_id: doc.id,
+			}
+		});
+
+		setTodos(data);
+		setLoading(false);
+	}
+
+	// Get todos on component mount
+	useEffect(() => {
+		getTodos();
+	}, []);
 
 	return (
 		<>
@@ -49,6 +58,8 @@ function TodosPage() {
 			)}
 
 			<AddNewTodoForm onAddTodo={addTodo} />
+
+			{loading && <p>Loading...</p>}
 
 			{todos && todos.length > 0 && (
 				<>
